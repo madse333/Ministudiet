@@ -36,7 +36,7 @@ const db = getFirestore(firebase_app);
 
 //getRequest
 app.get('/kalender', async (request, response) => {
-  response.render('index');
+  response.render('kalender');
 })
 
 
