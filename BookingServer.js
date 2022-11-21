@@ -47,6 +47,12 @@ app.get('/', async (request, response) => {
   response.render('kalender');
 })
 
+// Eksempel på at hente fra database med pug
+app.get('/index', async (request, response) =>{
+    const besked = await getBeskeder();
+    response.render('index', {beskeder: besked})
+})
+
 app.get('/information', async(request, response) => {
   response.render('information');
 })
