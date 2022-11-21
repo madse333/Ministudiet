@@ -46,7 +46,7 @@ app.get('/kalender', async (request, response) => {
   response.render('kalender');
 })
 
-app.get('information', async(request, response) => {
+app.get('/information', async(request, response) => {
   response.render('information');
 })
 
