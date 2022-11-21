@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getFirestore, collection, getDocs, doc, deleteDoc, addDoc, getDoc, query, where } from 'firebase/firestore'
+import { getFirestore, collection, getDocs, doc, deleteDoc, addDoc, getDoc, query, where, setDoc } from 'firebase/firestore'
 import { async } from '@firebase/util';
 import { get } from 'http';
 // TODO: Add SDKs for Firebase products that you want to use
@@ -76,6 +76,32 @@ async function getCalendar() {
 // app.post(){
 //   response
 // }
+
+//set collection
+async function addCollection{
+
+}
+//set dokument - TEST MIG
+/*
+Skal kende collection navn
+Find selv på navn til dokumentID
+Data er værdien du vil have ind
+*/
+async function addDokument(collectionNavn, dokumentID, data){
+  setDoc(doc(db, '"' + collectionNavn + '"','"' + dokumentID + '"'), data);
+} 
+
+/*
+Update dokument
+*/
+async function updateDokument(collectionNavn, dokumentID){
+  let updateDocInfo = doc(db,'"' + collectionNavn + '"', '"' + '"' + dokumentID + '"');
+
+  updateDoc(updateDocInfo, {
+    
+  })
+}
+
 
 //putRequest
 
