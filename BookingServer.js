@@ -2,9 +2,10 @@ const express = require('express');
 const app = express();
 
 
-app.set('view engine', 'pug')
+app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, '/views'));
 
-app.use(express.json())
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Import the functions you need from the SDKs you need
@@ -28,8 +29,16 @@ const firebase_app = initializeApp(firebaseConfig);
 
 //getRequest
 
+
+
 //postRequest
 
 //putRequest
 
 //deleteRequest
+
+//endpoints
+
+app.get('/kalender', async (request, response) => {
+  response.render('index');
+})
