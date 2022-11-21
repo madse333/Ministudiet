@@ -60,14 +60,12 @@ if(docSnap.exists()){
   console.log("No such document!");
 }
 
-
 //postRequest
 // app.post(){
 //   response
 // }
 
 //putRequest
-// Til ombooking af booket tid (hvis vi skulle nå det)
 
 //deleteRequest
 app.delete('/', (request, response) => {
