@@ -1,8 +1,31 @@
+head 
+
+
+
 body 
+    h1
+        b Fornavn: 
+        input(type="text" placeholder="Fornavn")
+        b Efternavn: 
+        input(type="text" placeholder="Efternavn")
+        b Mail: 
+        input(type="text" placeholder="Mail")
+        b Telefonnummer: 
+        input(type="text" placeholder="88888888")
+
+    h2 
+        b Betalingsform 
+        datalist 
+            option(value="Mobilepay")
+            option(value="Visa")
+            option(value="Mastercard")   
 
 
+    h3 
+        b Ønsker til lokation eller andre ønsker
+        input(type="textfield" placeholder="Jeg kunne godt tænke mig..." width="200px" height="200px") 
+        
+        button Til betaling ->
 
-head
-    h1 Fornavn: 
-    input(type="text" placeholder="Fornavn")
+
 
