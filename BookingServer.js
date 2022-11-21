@@ -18,6 +18,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore, collection, getDocs, doc, deleteDoc, addDoc, getDoc, query, where } from 'firebase/firestore'
 import { async } from '@firebase/util';
+import { get } from 'http';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -91,5 +92,5 @@ response.send("Deleted");
 });
 
 
-
-app.listen(8080, () =>console.log('Lytter nu på port 8080'));
+console.log(getCalendar());
+// app.listen(8080, () =>console.log('Lytter nu på port 8080'));
