@@ -50,19 +50,15 @@ app.get('/information', async(request, response) => {
   response.render('information');
 })
 
-async function soegBryllupsinformationer(bryllupsType) {
-  let carCol=collection(db, 'chat');
-  let q = query(carCol, where('afsender', '==', afsender));
-  let msg = await getDocs(q);
+//Forsøg på get
+const docRef = doc(db, "Bryllupper", "denEnkelte");
+const docSnap = await getDoc(docRef);
 
-  let msglist = msg.docs.map(doc => {
-      let data = doc.data();
-      data.docID = doc.id;
-      return data;
-  })
-  return msglist;
+if(docSnap.exists()){
+  console.log("Document data:", docSnap.data());
+} else {
+  console.log("No such document!");
 }
-
 
 //postRequest
 // app.post(){
