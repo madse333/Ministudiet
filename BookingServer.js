@@ -31,8 +31,13 @@ const firebaseConfig = {
 const firebase_app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const db = getFirestore(firebase_app);
-//getRequest
 
+//endpoints
+
+//getRequest
+app.get('/kalender', async (request, response) => {
+  response.render('index');
+})
 
 
 //postRequest
@@ -41,8 +46,3 @@ const db = getFirestore(firebase_app);
 
 //deleteRequest
 
-//endpoints
-
-app.get('/kalender', async (request, response) => {
-  response.render('index');
-})
