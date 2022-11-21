@@ -88,4 +88,4 @@ response.send("Deleted");
 
 
 console.log(getCalendar());
-// app.listen(8080, () =>console.log('Lytter nu på port 8080'));
+ app.listen(8080, () =>console.log('Lytter nu på port 8080'));
