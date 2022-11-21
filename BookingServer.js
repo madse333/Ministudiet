@@ -41,15 +41,24 @@ import { getFirestore, collection, getDocs, doc, deleteDoc, addDoc, getDoc, quer
 //endpoints
 
 //getRequest
-app.get('/kalender', async (request, response) => {
+app.get('/', async (request, response) => {
   response.render('kalender');
 })
 
-
 //postRequest
+// app.post(){
+//   response
+// }
 
 //putRequest
 
 //deleteRequest
+app.delete('/', (request, response) => {
+deleteXX(request.params.XX);
+response.status(201);
+response.send("Deleted");
+});
+
+
 
 app.listen(8080, ()=>console.log('Lytter nu på port 8080'));
