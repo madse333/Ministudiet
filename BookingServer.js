@@ -17,6 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore, collection, getDocs, doc, deleteDoc, addDoc, getDoc, query, where } from 'firebase/firestore'
+import { async } from '@firebase/util';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -43,6 +44,10 @@ const db = getFirestore(firebase_app);
 //getRequest
 app.get('/', async (request, response) => {
   response.render('kalender');
+})
+
+app.get('/information', async(request, response) => {
+  response.render('information');
 })
 
 
