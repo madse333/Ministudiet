@@ -51,12 +51,13 @@ app.get('/information', async(request, response) => {
 })
 
 
-//postRequest
+//postRequest (?)
 // app.post(){
 //   response
 // }
 
 //putRequest
+// Til ombooking af booket tid (hvis vi skulle nå det)
 
 //deleteRequest
 app.delete('/', (request, response) => {
