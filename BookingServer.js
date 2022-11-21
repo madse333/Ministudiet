@@ -1,4 +1,4 @@
-import express from 'express';      
+import express from 'express';
 const app = express();
 
 import path from 'path';
@@ -50,6 +50,17 @@ app.get('/information', async(request, response) => {
   response.render('information');
 })
 
+async function getCalendar() {
+  let calCol=collection(db, 'Bryllupper');
+  let dates = await getDocs(calCol);
+
+  let calList = dates.docs.map(doc => {
+      let data = doc.data();
+      data.docID = doc.id;
+      return data;
+  })
+  return calList;
+}
 
 //postRequest
 // app.post(){
