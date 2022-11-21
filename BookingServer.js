@@ -1,6 +1,5 @@
-const express = require('express');
+import express from 'express';      
 const app = express();
-
 
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, '/views'));
