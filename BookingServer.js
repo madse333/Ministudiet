@@ -1,10 +1,10 @@
-const express = require('express');
+import express from 'express';      
 const app = express();
 
+app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, '/views'));
 
-app.set('view engine', 'pug')
-
-app.use(express.json())
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Import the functions you need from the SDKs you need
@@ -33,8 +33,16 @@ const analytics = getAnalytics(app);
 const db = getFirestore(firebase_app);
 //getRequest
 
+
+
 //postRequest
 
 //putRequest
 
 //deleteRequest
+
+//endpoints
+
+app.get('/kalender', async (request, response) => {
+  response.render('index');
+})
