@@ -1,6 +1,12 @@
 const express = require('express');
 const app = express();
 
+
+app.set('view engine', 'pug')
+
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
+
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
