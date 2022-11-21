@@ -2,26 +2,29 @@ html
     head
         title Kalender 
     body
-        label Vælg produkt 
-        input 
-        datalist 
-            option value = "Familieportræt"
-            option value = "Bryllup"
-            option value = "Pugstars!"
+        div
+            label Vælg produkt 
+            input(list = "Produkttyper")
+            datalist(id = "Produkttyper")
+                option(value = "Familieportræt")
+                option(value = "Bryllup")
+                option(value = "Pugstars!")
+        div
+            label(id = "Årstal") 2022
+            button(id = "Tilbage") <- tilbage
+            label(id = "Uge") uge 1
+            button(id = "Frem") frem ->
+            table(id = "Kalender") 
+                tr 
+                    td Mandag
+                    td Tirsdag
+                    td Onsdag
+                    td Torsdag
+                    td Fredag
+                    td Lørdag 
+                    td Søndag
+                
+            
+            
+        button(id = "Videre") videre ->
 
-        label 2022
-
-
-
-
-
-//- <label for="ice-cream-choice">Choose a flavor:</label>
-//- <input list="ice-cream-flavors" id="ice-cream-choice" name="ice-cream-choice">
-
-//- <datalist id="ice-cream-flavors">
-//-     <option value="Chocolate">
-//-     <option value="Coconut">
-//-     <option value="Mint">
-//-     <option value="Strawberry">
-//-     <option value="Vanilla">
-//- </datalist>
