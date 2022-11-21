@@ -1,30 +1,48 @@
 head 
+    style
+        include ./information.css
 
 
 
 body 
-    h1
-        b Fornavn: 
-        input(type="text" placeholder="Fornavn")
-        b Efternavn: 
-        input(type="text" placeholder="Efternavn")
-        b Mail: 
-        input(type="text" placeholder="Mail")
-        b Telefonnummer: 
-        input(type="text" placeholder="88888888")
+    div 
+        table
+            tr
+                td   
+                    b  Fornavn: 
+                td 
+                    input(type="text" placeholder="Fornavn")
+            tr 
+                td 
+                    b Efternavn: 
+                td 
+                    input(type="text" placeholder="Efternavn")
+            tr 
+                td 
+                    b Mail: 
+                td 
+                    input(type="text" placeholder="Mail")
+            tr
+                td  
+                    b Telefonnummer: 
+                td 
+                    input(type="text" placeholder="88888888")
 
-    h2 
+    div  
         b Betalingsform 
-        datalist 
+        input(list="betalingsmetoder")
+        datalist(id="betalingsmetoder")
             option(value="Mobilepay")
             option(value="Visa")
             option(value="Mastercard")   
-
-
-    h3 
-        b Ønsker til lokation eller andre ønsker
-        input(type="textfield" placeholder="Jeg kunne godt tænke mig..." width="200px" height="200px") 
         
+
+
+    div 
+        b Ønsker til lokation eller andre ønsker
+    div 
+        textarea(name="tfxOensker", cols="30", rows="10", placeholder="Jeg kunne godt tænke mig...")
+    div 
         button Til betaling ->
 
 
