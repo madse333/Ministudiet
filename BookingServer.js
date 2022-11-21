@@ -1,4 +1,4 @@
-import express from 'express';      
+import express from 'express';
 const app = express();
 
 import path from 'path';
@@ -18,6 +18,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore, collection, getDocs, doc, deleteDoc, addDoc, getDoc, query, where } from 'firebase/firestore'
 import { async } from '@firebase/util';
+import { get } from 'http';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -59,6 +60,17 @@ if(docSnap.exists()){
 } else {
   console.log("No such document!");
 }
+async function getCalendar() {
+  let calCol=collection(db, 'Bryllupper');
+  let dates = await getDocs(calCol);
+
+  let calList = dates.docs.map(doc => {
+      let data = doc.data();
+      data.docID = doc.id;
+      return data;
+  })
+  return calList;
+}
 
 //postRequest
 // app.post(){
@@ -75,5 +87,5 @@ response.send("Deleted");
 });
 
 
-
-app.listen(8080, () =>console.log('Lytter nu på port 8080'));
+console.log(getCalendar());
+// app.listen(8080, () =>console.log('Lytter nu på port 8080'));
