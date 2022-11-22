@@ -112,18 +112,18 @@ Skal kende collection navn
 Find selv på navn til dokumentID
 Data er værdien du vil have ind
 */
-/*
+
 async function addDokument(collectionNavn, dokumentID, data){
- await setDoc(doc(firesbase_db, '"' + collectionNavn + '"','"' + dokumentID + '"'), data);
+ await setDoc(doc(firesbase_db,collectionNavn,dokumentID), data);
 } 
 
-addDokument(TestKollektion, Test2, buuuuh);
-*/
+let buuuuh = {navn : "John"};
 
-/*
-Update dokument - ikke færdig
-*/
-/*
+//SKAL HAVEET OBJEKT
+addDokument('TestKollektion', 'Test2', buuuuh);
+
+
+//Update dokument - ikke færdig
 async function updateDokument(collectionNavn, dokumentID){
   let updateDocInfo = doc(firesbase_db,'"' + collectionNavn + '"', '"' + '"' + dokumentID + '"');
 
@@ -131,7 +131,7 @@ async function updateDokument(collectionNavn, dokumentID){
     
   })
 }
-*/
+
 
 
 //putRequest5
@@ -145,4 +145,5 @@ app.delete('/', (request, response) => {
 
 console.log(Date.now());
 
+//console.log(getCalendar());
 app.listen(8080, () => console.log('Lytter nu på port 8080'));
