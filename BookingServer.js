@@ -81,6 +81,7 @@ async function getAllDocInCollection(collectionName) {
 }
   
 
+//HUSK ' ' 
 getAllDocInCollection('Booking2023');
 
 
@@ -133,7 +134,7 @@ async function updateDokument(collectionNavn, dokumentID){
 */
 
 
-//putRequest
+//putRequest5
 
 //deleteRequest
 app.delete('/', (request, response) => {
@@ -144,5 +145,4 @@ app.delete('/', (request, response) => {
 
 console.log(Date.now());
 
-console.log(getCalendar());
 app.listen(8080, () => console.log('Lytter nu på port 8080'));
