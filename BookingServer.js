@@ -68,18 +68,20 @@ if (docSnap.exists()) {
 }
 
 //Forsøg på get af alle dok i collection
-async function getAllDocInCollection(collectionName){//('Booking2023') {
+async function getAllDocInCollection(collectionName){ 
   const collectionSnapshot = await getDocs(collection(firesbase_db, '"' + collectionName + collectionName.getDocs + '"'));
   //console.log(Date.now());
+}
 
-  collectionSnapshot.forEach((doc) => {
 async function getAllDocInCollection(collectionName) {
   const collectionSnapshot = await getDocs(collection(firesbase_db, collectionName));
   collectionSnapshot.forEach((doc) => {
     console.log(doc.id, " => ", doc.data());
   });
 }
+  
 
+//HUSK ' ' 
 getAllDocInCollection('Booking2023');
 
 
@@ -132,7 +134,7 @@ async function updateDokument(collectionNavn, dokumentID){
 
 
 
-//putRequest
+//putRequest5
 
 //deleteRequest
 app.delete('/', (request, response) => {
