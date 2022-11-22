@@ -66,6 +66,7 @@ if (docSnap.exists()) {
   console.log("No such document!");
 }
 
+//Antaget af oprettelse af en booking tilføjer den nye booking til DB-collection Booking2023 (funktionen henter data herfra)
 //Forsøg på get af alle dok i collection
 async function getAllDocInCollection(collectionName) {
   const collectionSnapshot = await getDocs(collection(firesbase_db, collectionName));
@@ -112,18 +113,18 @@ Skal kende collection navn
 Find selv på navn til dokumentID
 Data er værdien du vil have ind
 */
-/*
+
 async function addDokument(collectionNavn, dokumentID, data){
- await setDoc(doc(firesbase_db, '"' + collectionNavn + '"','"' + dokumentID + '"'), data);
+ await setDoc(doc(firesbase_db,collectionNavn,dokumentID), data);
 } 
 
-addDokument(TestKollektion, Test2, buuuuh);
-*/
+let buuuuh = {navn : "John"};
 
-/*
-Update dokument - ikke færdig
-*/
-/*
+//SKAL HAVEET OBJEKT
+addDokument('TestKollektion', 'Test2', buuuuh);
+
+
+//Update dokument - ikke færdig
 async function updateDokument(collectionNavn, dokumentID){
   let updateDocInfo = doc(firesbase_db,'"' + collectionNavn + '"', '"' + '"' + dokumentID + '"');
 
@@ -131,7 +132,7 @@ async function updateDokument(collectionNavn, dokumentID){
     
   })
 }
-*/
+
 
 
 //putRequest5
