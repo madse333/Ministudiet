@@ -132,6 +132,9 @@ async function updateDokument(collectionNavn, dokumentID){
   })
 }
 
+// PO ønsker at kunden kan vælge en ledig tid og booke den 
+
+
 
 
 //putRequest5
