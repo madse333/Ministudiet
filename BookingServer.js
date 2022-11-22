@@ -73,6 +73,9 @@ async function getAllDocInCollection(collectionName){//('Booking2023') {
   //console.log(Date.now());
 
   collectionSnapshot.forEach((doc) => {
+async function getAllDocInCollection(collectionName) {
+  const collectionSnapshot = await getDocs(collection(firesbase_db, collectionName));
+  collectionSnapshot.forEach((doc) => {
     console.log(doc.id, " => ", doc.data());
   });
 }
@@ -138,7 +141,7 @@ app.delete('/', (request, response) => {
   response.send("Deleted");
 });
 
+console.log(Date.now());
 
 console.log(getCalendar());
-express_
 app.listen(8080, () => console.log('Lytter nu på port 8080'));
