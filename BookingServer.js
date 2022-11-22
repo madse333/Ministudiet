@@ -67,7 +67,12 @@ if (docSnap.exists()) {
   console.log("No such document!");
 }
 
-//Forsøg på get af alle dok i collection - VIKRER
+//Forsøg på get af alle dok i collection
+async function getAllDocInCollection(collectionName){//('Booking2023') {
+  const collectionSnapshot = await getDocs(collection(firesbase_db, '"' + collectionName + collectionName.getDocs + '"'));
+  //console.log(Date.now());
+
+  collectionSnapshot.forEach((doc) => {
 async function getAllDocInCollection(collectionName) {
   const collectionSnapshot = await getDocs(collection(firesbase_db, collectionName));
   collectionSnapshot.forEach((doc) => {
@@ -75,8 +80,7 @@ async function getAllDocInCollection(collectionName) {
   });
 }
 
-//HUSK ' ' 
-getAllDocInCollection('Bryllupper');
+getAllDocInCollection('Booking2023');
 
 
 
@@ -137,6 +141,7 @@ app.delete('/', (request, response) => {
   response.send("Deleted");
 });
 
+console.log(Date.now());
 
 //console.log(getCalendar());
 app.listen(8080, () => console.log('Lytter nu på port 8080'));
