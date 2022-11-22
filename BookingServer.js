@@ -67,10 +67,10 @@ if (docSnap.exists()) {
   console.log("No such document!");
 }
 
+//Antaget af oprettelse af en booking tilføjer den nye booking til DB-collection Booking2023 (funktionen henter data herfra)
 //Forsøg på get af alle dok i collection
 async function getAllDocInCollection(collectionName){ 
   const collectionSnapshot = await getDocs(collection(firesbase_db, '"' + collectionName + collectionName.getDocs + '"'));
-  //console.log(Date.now());
 }
 
 async function getAllDocInCollection(collectionName) {
