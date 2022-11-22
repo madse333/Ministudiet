@@ -67,7 +67,7 @@ if (docSnap.exists()) {
   console.log("No such document!");
 }
 
-//Forsøg på get af alle dok i collection
+//Forsøg på get af alle dok i collection - VIKRER
 async function getAllDocInCollection(collectionName) {
   const collectionSnapshot = await getDocs(collection(firesbase_db, collectionName));
   collectionSnapshot.forEach((doc) => {
@@ -106,18 +106,18 @@ Skal kende collection navn
 Find selv på navn til dokumentID
 Data er værdien du vil have ind
 */
-/*
+
 async function addDokument(collectionNavn, dokumentID, data){
- await setDoc(doc(firesbase_db, '"' + collectionNavn + '"','"' + dokumentID + '"'), data);
+ await setDoc(doc(firesbase_db,collectionNavn,dokumentID), data);
 } 
 
-addDokument(TestKollektion, Test2, buuuuh);
-*/
+let buuuuh = {navn : "John"};
 
-/*
-Update dokument - ikke færdig
-*/
-/*
+//SKAL HAVEET OBJEKT
+addDokument('TestKollektion', 'Test2', buuuuh);
+
+
+//Update dokument - ikke færdig
 async function updateDokument(collectionNavn, dokumentID){
   let updateDocInfo = doc(firesbase_db,'"' + collectionNavn + '"', '"' + '"' + dokumentID + '"');
 
@@ -125,7 +125,7 @@ async function updateDokument(collectionNavn, dokumentID){
     
   })
 }
-*/
+
 
 
 //putRequest
@@ -138,5 +138,5 @@ app.delete('/', (request, response) => {
 });
 
 
-console.log(getCalendar());
+//console.log(getCalendar());
 app.listen(8080, () => console.log('Lytter nu på port 8080'));
