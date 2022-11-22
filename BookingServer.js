@@ -86,6 +86,7 @@ response.status(201);
 response.send("Deleted");
 });
 
+console.log(Date.now());
 
-console.log(getCalendar());
-// app.listen(8080, () =>console.log('Lytter nu på port 8080'));
+// console.log(getCalendar());
+app.listen(8080, () =>console.log('Lytter nu på port 8080'));
