@@ -18,6 +18,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore, collection, getDocs, doc, deleteDoc, addDoc, getDoc, query, where, setDoc } from 'firebase/firestore'
 import { async } from '@firebase/util';
+import { stringify } from 'querystring';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -57,8 +58,8 @@ app.get('/information', async (request, response) => {
 })
 
 //Forsøg på get
-// const docRef = doc(firesbase_db, "Bryllupper", "denEnkelte");
-// const docSnap = await getDoc(docRef);
+  //const docRef = doc(firesbase_db, "Bryllupper", "denEnkelte");
+  //const docSnap = await getDoc(docRef);
 
 // if (docSnap.exists()) {
 //   console.log("Document data:", docSnap.data());
@@ -66,7 +67,7 @@ app.get('/information', async (request, response) => {
 //   console.log("No such document!");
 // }
 
-//Antaget af oprettelse af en booking tilføjer den nye booking til DB-collection Booking2023 (funktionen henter data herfra)
+//Antaget at oprettelse af en booking tilføjer den nye booking til DB-collection Booking2023 (funktionen henter data herfra)
 //Forsøg på get af alle dok i collection
 // async function getAllDocInCollection(collectionName) {
 //   const collectionSnapshot = await getDocs(collection(firesbase_db, collectionName));
