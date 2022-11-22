@@ -18,7 +18,6 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore, collection, getDocs, doc, deleteDoc, addDoc, getDoc, query, where, setDoc } from 'firebase/firestore'
 import { async } from '@firebase/util';
-import { get } from 'http';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -68,11 +67,6 @@ if (docSnap.exists()) {
 }
 
 //Forsøg på get af alle dok i collection
-async function getAllDocInCollection(collectionName){//('Booking2023') {
-  const collectionSnapshot = await getDocs(collection(firesbase_db, '"' + collectionName + collectionName.getDocs + '"'));
-  //console.log(Date.now());
-
-  collectionSnapshot.forEach((doc) => {
 async function getAllDocInCollection(collectionName) {
   const collectionSnapshot = await getDocs(collection(firesbase_db, collectionName));
   collectionSnapshot.forEach((doc) => {
@@ -80,8 +74,15 @@ async function getAllDocInCollection(collectionName) {
   });
 }
 
+// async function getAllDocInCollection(collectionName) {
+//   const collectionSnapshot = await getDocs(collection(firesbase_db, collectionName));
+//   collectionSnapshot.forEach((doc) => {
+//     JSON.stringify
+//   })
+// }
+
 //HUSK ' ' 
-getAllDocInCollection('Booking2023');
+console.log(getAllDocInCollection('Booking2023'));
 
 
 
@@ -141,7 +142,5 @@ app.delete('/', (request, response) => {
   response.status(201);
   response.send("Deleted");
 });
-
-console.log(Date.now());
 
 app.listen(8080, () => console.log('Lytter nu på port 8080'));
