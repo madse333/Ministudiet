@@ -69,26 +69,39 @@ app.get('/information', async (request, response) => {
 
 /*Antaget at oprettelse af en booking tilføjer den nye booking til DB-collection Booking2023 (funktionen henter data herfra)*/
 //Forsøg på get af alle dok i collection
-async function getAllDocInCollection(collectionName) {
-  const collectionSnapshot = await getDocs(collection(firesbase_db, collectionName));
-  collectionSnapshot.forEach((doc) => {
-    //console.log(JSON.stringify(doc.data()));    //test: Dette brugt til at sikre at vi får de rette data
-    tidsliste += JSON.stringify(doc.data());
-    //console.log(doc.id, " => ", doc.data());    //test: Dette brugt til at sikre at vi får de rette data (skal ikke udskrives)
-    return JSON.stringify(tidsliste);
-  });
-}
-
 // async function getAllDocInCollection(collectionName) {
 //   const collectionSnapshot = await getDocs(collection(firesbase_db, collectionName));
 //   collectionSnapshot.forEach((doc) => {
-//     JSON.stringify
-//   })
+//     console.log(doc.id, " => ", doc.data());
+//   });
 // }
 
+// async function getAllDocInCollection(collectionName) {
+//   const collectionSnapshot = await getDocs(collection(firesbase_db, collectionName));
+//   var dataString = "";
+//   collectionSnapshot.forEach((doc) => {
+//     dataString = JSON.stringify(doc.data());
+//   })
+//   return dataString;
+// }
+
+/*Antaget at oprettelse af en booking tilføjer den nye booking til DB-collection Booking2023 (funktionen henter data herfra)*/
+async function getTider(){
+  let tidsCol = collection(firesbase_db, 'tider')
+  let tider = await getDocs(tidsCol);
+
+  let tidsListe = tider.docs.map(doc =>{
+      let data = doc.data();
+      data.docId = doc.id;
+      return data;
+  })
+  return JSON.stringify(tidsListe);
+}
+
 //HUSK ' ' 
-console.log(getAllDocInCollection('tider'));
-//getAllDocInCollection('tider');
+// console.log(getAllDocInCollection('Booking2023'));
+console.log(await getTider());
+
 
 
 //postRequest
