@@ -68,15 +68,16 @@ if (docSnap.exists()) {
 }
 
 //Forsøg på get af alle dok i collection
-async function getAllDocInCollection(collectionName) {
-  const collectionSnapshot = await getDocs(collection(firesbase_db, '"' + collectionName + '"'));
+async function getAllDocInCollection(collectionName){//('Booking2023') {
+  const collectionSnapshot = await getDocs(collection(firesbase_db, '"' + collectionName + collectionName.getDocs + '"'));
+  //console.log(Date.now());
 
   collectionSnapshot.forEach((doc) => {
     console.log(doc.id, " => ", doc.data());
   });
 }
 
-getAllDocInCollection(Bryllupper);
+getAllDocInCollection('Booking2023');
 
 
 
