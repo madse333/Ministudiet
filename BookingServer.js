@@ -38,7 +38,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const firebase_app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
-const db = getFirestore(firebase_app);
+const firesbase_db = getFirestore(firebase_app);
 
 //endpoints
 
@@ -48,32 +48,45 @@ app.get('/', async (request, response) => {
 })
 
 // Eksempel på at hente fra database med pug
-app.get('/index', async (request, response) =>{
-    const besked = await getBeskeder();
-    response.render('index', {beskeder: besked})
+app.get('/index', async (request, response) => {
+  const besked = await getBeskeder();
+  response.render('index', { beskeder: besked })
 })
 
-app.get('/information', async(request, response) => {
+app.get('/information', async (request, response) => {
   response.render('information');
 })
 
 //Forsøg på get
-const docRef = doc(db, "Bryllupper", "denEnkelte");
+const docRef = doc(firesbase_db, "Bryllupper", "denEnkelte");
 const docSnap = await getDoc(docRef);
 
-if(docSnap.exists()){
+if (docSnap.exists()) {
   console.log("Document data:", docSnap.data());
 } else {
   console.log("No such document!");
 }
+
+//Forsøg på get af alle dok i collection
+async function getAllDocInCollection(collectionName) {
+  const collectionSnapshot = await getDocs(collection(firesbase_db, '"' + collectionName + '"'));
+
+  collectionSnapshot.forEach((doc) => {
+    console.log(doc.id, " => ", doc.data());
+  });
+}
+
+getAllDocInCollection(Bryllupper);
+
+
 async function getCalendar() {
-  let calCol=collection(db, 'Bryllupper');
+  let calCol = collection(firesbase_db, 'Bryllupper');
   let dates = await getDocs(calCol);
 
   let calList = dates.docs.map(doc => {
-      let data = doc.data();
-      data.docID = doc.id;
-      return data;
+    let data = doc.data();
+    data.docID = doc.id;
+    return data;
   })
   return calList;
 }
@@ -83,41 +96,59 @@ async function getCalendar() {
 //   response
 // }
 
-//set collection
-async function addCollection{
+//create collection
+/*
+En collection kan ikke oprettes uden min. ét dokument,
+hvis ikke den gives et dokumentID og dokumentData, så opretter den bare en test
 
+*/
+/*
+async function addCollection(collectionNavn, dokumentID, dokumentData){
+    firebase_app.database().ref
 }
+*/
+
+
+
+
 //set dokument - TEST MIG
 /*
 Skal kende collection navn
 Find selv på navn til dokumentID
 Data er værdien du vil have ind
 */
+/*
 async function addDokument(collectionNavn, dokumentID, data){
-  setDoc(doc(db, '"' + collectionNavn + '"','"' + dokumentID + '"'), data);
+ await setDoc(doc(firesbase_db, '"' + collectionNavn + '"','"' + dokumentID + '"'), data);
 } 
 
-/*
-Update dokument
+addDokument(TestKollektion, Test2, buuuuh);
 */
+
+/*
+Update dokument - ikke færdig
+*/
+/*
 async function updateDokument(collectionNavn, dokumentID){
-  let updateDocInfo = doc(db,'"' + collectionNavn + '"', '"' + '"' + dokumentID + '"');
+  let updateDocInfo = doc(firesbase_db,'"' + collectionNavn + '"', '"' + '"' + dokumentID + '"');
 
   updateDoc(updateDocInfo, {
     
   })
 }
+*/
 
 
 //putRequest
 
 //deleteRequest
 app.delete('/', (request, response) => {
-deleteXX(request.params.XX);
-response.status(201);
-response.send("Deleted");
+  deleteXX(request.params.XX);
+  response.status(201);
+  response.send("Deleted");
 });
 
 
 console.log(getCalendar());
- app.listen(8080, () =>console.log('Lytter nu på port 8080'));
+express_
+app.listen(8080, () => console.log('Lytter nu på port 8080'));
