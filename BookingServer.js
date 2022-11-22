@@ -57,33 +57,48 @@ app.get('/information', async (request, response) => {
 })
 
 //Forsøg på get
-const docRef = doc(firesbase_db, "Bryllupper", "denEnkelte");
-const docSnap = await getDoc(docRef);
+// const docRef = doc(firesbase_db, "Bryllupper", "denEnkelte");
+// const docSnap = await getDoc(docRef);
 
-if (docSnap.exists()) {
-  console.log("Document data:", docSnap.data());
-} else {
-  console.log("No such document!");
-}
+// if (docSnap.exists()) {
+//   console.log("Document data:", docSnap.data());
+// } else {
+//   console.log("No such document!");
+// }
 
 //Antaget af oprettelse af en booking tilføjer den nye booking til DB-collection Booking2023 (funktionen henter data herfra)
 //Forsøg på get af alle dok i collection
-async function getAllDocInCollection(collectionName) {
-  const collectionSnapshot = await getDocs(collection(firesbase_db, collectionName));
-  collectionSnapshot.forEach((doc) => {
-    console.log(doc.id, " => ", doc.data());
-  });
-}
-
 // async function getAllDocInCollection(collectionName) {
 //   const collectionSnapshot = await getDocs(collection(firesbase_db, collectionName));
 //   collectionSnapshot.forEach((doc) => {
-//     JSON.stringify
-//   })
+//     console.log(doc.id, " => ", doc.data());
+//   });
 // }
 
+// async function getAllDocInCollection(collectionName) {
+//   const collectionSnapshot = await getDocs(collection(firesbase_db, collectionName));
+//   var dataString = "";
+//   collectionSnapshot.forEach((doc) => {
+//     dataString = JSON.stringify(doc.data());
+//   })
+//   return dataString;
+// }
+
+async function getTider(){
+  let tidsCol = collection(firesbase_db, 'tider')
+  let tider = await getDocs(tidsCol);
+
+  let tidsListe = tider.docs.map(doc =>{
+      let data = doc.data();
+      data.docId = doc.id;
+      return data;
+  })
+  return JSON.stringify(tidsListe);
+}
+
 //HUSK ' ' 
-console.log(getAllDocInCollection('Booking2023'));
+// console.log(getAllDocInCollection('Booking2023'));
+console.log(await getTider());
 
 
 
