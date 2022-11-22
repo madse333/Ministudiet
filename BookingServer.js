@@ -69,14 +69,14 @@ if (docSnap.exists()) {
 
 //Forsøg på get af alle dok i collection
 async function getAllDocInCollection(collectionName) {
-  const collectionSnapshot = await getDocs(collection(firesbase_db, '"' + collectionName + '"'));
-
+  const collectionSnapshot = await getDocs(collection(firesbase_db, collectionName));
   collectionSnapshot.forEach((doc) => {
     console.log(doc.id, " => ", doc.data());
   });
 }
 
-getAllDocInCollection(Bryllupper);
+//HUSK ' ' 
+getAllDocInCollection('Bryllupper');
 
 
 async function getCalendar() {
@@ -150,5 +150,4 @@ app.delete('/', (request, response) => {
 
 
 console.log(getCalendar());
-express_
 app.listen(8080, () => console.log('Lytter nu på port 8080'));
