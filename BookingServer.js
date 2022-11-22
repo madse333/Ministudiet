@@ -79,17 +79,6 @@ async function getAllDocInCollection(collectionName) {
 getAllDocInCollection(Bryllupper);
 
 
-async function getCalendar() {
-  let calCol = collection(firesbase_db, 'Bryllupper');
-  let dates = await getDocs(calCol);
-
-  let calList = dates.docs.map(doc => {
-    let data = doc.data();
-    data.docID = doc.id;
-    return data;
-  })
-  return calList;
-}
 
 //postRequest
 // app.post(){
