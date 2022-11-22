@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getFirestore, collection, getDocs, doc, deleteDoc, addDoc, getDoc, query, where, setDoc } from 'firebase/firestore'
+import { getFirestore, collection, getDocs, updateDoc, doc, deleteDoc, addDoc, getDoc, query, where, setDoc } from 'firebase/firestore'
 import { async } from '@firebase/util';
 import { stringify } from 'querystring';
 // TODO: Add SDKs for Firebase products that you want to use
@@ -124,20 +124,24 @@ async function addDokument(collectionNavn, dokumentID, data){
 let buuuuh = {navn : "John"};
 
 //SKAL HAVEET OBJEKT
-addDokument('TestKollektion', 'Test2', buuuuh);
+//addDokument('TestKollektion', 'Test2', buuuuh);
 
 
 //Update dokument - ikke færdig
-async function updateDokument(collectionNavn, dokumentID){
-  let updateDocInfo = doc(firesbase_db,'"' + collectionNavn + '"', '"' + '"' + dokumentID + '"');
+// PO ønsker at kunden kan vælge en ledig tid og booke den (UPDATE SKABELON)
 
-  updateDoc(updateDocInfo, {
-    
-  })
+async function bookTid(dokumentID, kundenavn, kundeMail, telefonnr){
+  let updateDocInfo = doc(firesbase_db, 'tider', dokumentID);
+
+  await updateDoc(updateDocInfo, {
+    ledig : false,
+    kundeNavn : kundenavn,
+    mail : kundeMail,
+    telefonnummer : telefonnr
+  });
 }
 
-// PO ønsker at kunden kan vælge en ledig tid og booke den 
-
+bookTid('test1', "John", "John@gmail.com", "12345678");
 
 
 
