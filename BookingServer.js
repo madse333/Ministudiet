@@ -67,13 +67,15 @@ app.get('/information', async (request, response) => {
 //   console.log("No such document!");
 // }
 
-//Antaget at oprettelse af en booking tilføjer den nye booking til DB-collection Booking2023 (funktionen henter data herfra)
+/*Antaget at oprettelse af en booking tilføjer den nye booking til DB-collection Booking2023 (funktionen henter data herfra)*/
 //Forsøg på get af alle dok i collection
 async function getAllDocInCollection(collectionName) {
   const collectionSnapshot = await getDocs(collection(firesbase_db, collectionName));
   collectionSnapshot.forEach((doc) => {
-    console.log(JSON.stringify(doc.data()));
-    //console.log(doc.id, " => ", doc.data());
+    //console.log(JSON.stringify(doc.data()));    //test: Dette brugt til at sikre at vi får de rette data
+    tidsliste += JSON.stringify(doc.data());
+    //console.log(doc.id, " => ", doc.data());    //test: Dette brugt til at sikre at vi får de rette data (skal ikke udskrives)
+    return JSON.stringify(tidsliste);
   });
 }
 
@@ -85,9 +87,8 @@ async function getAllDocInCollection(collectionName) {
 // }
 
 //HUSK ' ' 
-console.log("blå: ");
 console.log(getAllDocInCollection('tider'));
-
+//getAllDocInCollection('tider');
 
 
 //postRequest
