@@ -100,7 +100,7 @@ async function getTider(){
 
 //HUSK ' ' 
 // console.log(getAllDocInCollection('Booking2023'));
-console.log(await getTider());
+//console.log(await getTider());
 
 
 
@@ -130,7 +130,7 @@ Skal kende collection navn
 Find selv på navn til dokumentID
 Data er værdien du vil have ind
 */
-
+//SKABELON
 async function addDokument(collectionNavn, dokumentID, data){
  await setDoc(doc(firesbase_db,collectionNavn,dokumentID), data);
 } 
@@ -158,7 +158,38 @@ async function bookTid(dokumentID, kundenavn, kundeMail, telefonnr){
 bookTid('test1', "John", "John@gmail.com", "12345678");
 
 
+//PO ønsker at kunden kan vælge forskellige produkter og se tilhørende priser
+/*
+Produkterne skal ligge i en dropdown
+Skal kunne klikke på ét produkt
+Dernæst vises indholdet af prisen for hver pakke
+*/
+//Koden viser priserne i en liste - KUN FOR FAMILIE OG PAR
+async function chooseProductsFamilieOgPar(){
+  let productCol = collection(firesbase_db, 'FamilieOgPar')
+  let getProducts = await getDocs(productCol);
 
+  let productList = getProducts.docs.map(doc => {
+    let data = doc.data();
+    data.docId = doc.id;
+    return data.pris;
+  })
+  return JSON.stringify(productList);
+}
+//console.log(await chooseProductsFamilieOgPar());
+//Viser prisen for bryllupper
+async function chooseProductsBryllupper(){
+  let productCol = collection(firesbase_db, 'Bryllupper')
+  let getProducts = await getDocs(productCol);
+
+  let productList = getProducts.docs.map(doc => {
+    let data = doc.data();
+    data.docId = doc.id;
+    return data.pris;
+  })
+  return JSON.stringify(productList);
+}
+console.log(await chooseProductsBryllupper());
 //putRequest5
 
 //deleteRequest
