@@ -143,27 +143,40 @@ let buuuuh = {navn : "John"};
 
 //Update dokument - ikke færdig
 // PO ønsker at kunden kan vælge en ledig tid og booke den (UPDATE SKABELON)
-
+/*
 async function bookTid(dokumentID, kundenavn, kundeMail, telefonnr){
   let updateDocInfo = doc(firesbase_db, 'tider', dokumentID);
-
-  await updateDoc(updateDocInfo, {
+    await updateDoc(updateDocInfo, {
     ledig : false,
     kundeNavn : kundenavn,
     mail : kundeMail,
     telefonnummer : telefonnr
   });
 }
+*/
+// PO ønsker at kunden kan vælge en ledig tid og booke den (ADD SKABELON)
+async function bookTid(kundeNavn, mail, telefonnummer, type) {
 
-bookTid('test1', "John", "John@gmail.com", "12345678");
+  const docRef = await addDoc(collection(firesbase_db, "tider" ), {
+    kundeNavn: kundeNavn,
+    mail: mail,
+    telefonnummer: telefonnummer,
+    type: type
+  });
+}
 
-
+bookTid("John", "John@gmail.com", "12345678", "Bryllup");
 //PO ønsker at kunden kan vælge forskellige produkter og se tilhørende priser
 /*
 Produkterne skal ligge i en dropdown
 Skal kunne klikke på ét produkt
 Dernæst vises indholdet af prisen for hver pakke
 */
+
+// Viser de to produkter Bryllupper og FamilieOgPar
+
+
+
 //Koden viser priserne i en liste - KUN FOR FAMILIE OG PAR
 async function chooseProductsFamilieOgPar(){
   let productCol = collection(firesbase_db, 'FamilieOgPar')
