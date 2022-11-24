@@ -93,14 +93,14 @@ async function getTider(){                                //viser alle bookede t
   let tidsListe = tider.docs.map(doc =>{
       let data = doc.data();
       data.docId = doc.id;
-      return data;
+      return data.tidspunktStart;
   })
   return JSON.stringify(tidsListe);
 }
 
 //HUSK ' ' 
 // console.log(getAllDocInCollection('Booking2023'));
-//console.log(await getTider());
+console.log(await getTider());
 
 
 
@@ -155,6 +155,7 @@ async function bookTid(dokumentID, kundenavn, kundeMail, telefonnr){
 }
 */
 // PO ønsker at kunden kan vælge en ledig tid og booke den (ADD SKABELON)
+// BRUG ARRAY TIL DATO ELLER STRING TIL DATO?
 async function bookTid(kundeNavn, mail, telefonnummer, type) {
 
   const docRef = await addDoc(collection(firesbase_db, "tider" ), {
@@ -165,7 +166,7 @@ async function bookTid(kundeNavn, mail, telefonnummer, type) {
   });
 }
 
-bookTid("John", "John@gmail.com", "12345678", "Bryllup");
+//bookTid("John", "John@gmail.com", "12345678", "Bryllup");
 //PO ønsker at kunden kan vælge forskellige produkter og se tilhørende priser
 /*
 Produkterne skal ligge i en dropdown
