@@ -85,8 +85,8 @@ app.get('/information', async (request, response) => {
 //   return dataString;
 // }
 
-/*Antaget at oprettelse af en booking tilføjer den nye booking til DB-collection Booking2023 (funktionen henter data herfra)*/
-async function getTider(){
+/*Antaget at oprettelse af en booking tilføjer den nye booking til DB-collection tider (funktionen henter data herfra)*/
+async function getTider(){                                //viser alle bookede tider
   let tidsCol = collection(firesbase_db, 'tider')
   let tider = await getDocs(tidsCol);
 
