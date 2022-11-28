@@ -232,7 +232,7 @@ async function bookTid(kundeNavn, mail, telefonnummer, type) {
   });
 }
 
-bookTid("John", "John@gmail.com", "12345678", "Bryllup");
+//bookTid("John", "John@gmail.com", "12345678", "Bryllup");
 //PO ønsker at kunden kan vælge forskellige produkter og se tilhørende priser
 /*
 Produkterne skal ligge i en dropdown
