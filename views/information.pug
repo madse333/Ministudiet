@@ -2,8 +2,6 @@ head
     style
         include ./information.css
 
-
-
 body 
     div 
         table
@@ -44,6 +42,16 @@ body
         textarea(name="tfxOensker", cols="30", rows="10", placeholder="Jeg kunne godt tænke mig...")
     div 
         button Til betaling ->
+
+    
+    div 
+        table 
+            tr 
+                td Mandag 
+            each tids in tider  
+                tr 
+                    td #{tids.tid}
+                    
 
 
 

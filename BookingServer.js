@@ -35,6 +35,7 @@ const firebaseConfig = {
 
 // testfeks
 
+// app.use(sessions({ secret: 'hemmelig', saveUninitialized: true, cookie: { maxAge: 1000*60*20 }, resave: false }));
 // Initialize Firebase
 const firebase_app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
@@ -43,8 +44,74 @@ const firesbase_db = getFirestore(firebase_app);
 //endpoints
 
 //getRequest
+class Dag {
+  constructor(navn) {
+      this.navn = navn;
+      this.tider = [];
+  }
+ }
+
+ let mandag = new Dag("Mandag ")
+ let tirsdag = new Dag("Tirsdag ")
+ let onsdag = new Dag("Onsdag ")
+ let torsdag = new Dag("Torsdag ")
+ let fredag = new Dag("Fredag ")
+ let lørdag = new Dag("Lørdag ")
+ let søndag = new Dag("Søndag ")
+  const dage = [mandag, tirsdag, onsdag, torsdag, fredag, lørdag, søndag];
+
+//endpoints
+class Tid {
+  constructor(tid) {
+      this.tid = tid;
+  }
+ }
+ let tid1 = new Tid("8:00");
+ let tid2 = new Tid("9:00");
+ let tid3 = new Tid("10:00");
+ let tid4 = new Tid("11:00");
+ let tid5 = new Tid("12:00");
+ let tid6 = new Tid("13:00");
+ let tid7 = new Tid("14:00");
+ let tid8 = new Tid("16:00");
+ let tid9 = new Tid("18:00");
+
+const liste = [tid1, tid2, tid3, tid4, tid5, tid6, tid7, tid8, tid9];
+
+let weekNumber = Math.ceil(Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 1)) /(24 * 60 * 60 * 1000))/7);
+
+// let fremButton = document.querySelector('Button');
+// fremButton.addEventListener("click", skiftUge);
+
+function createWeek(){
+  let newWeek = JSON.parse(JSON.stringify(dage));
+  console.log(dage);
+  let week = weekNumber;
+  for (let i = 0; i < newWeek.length; i++) {
+    newWeek[i].navn += getDateOfISOWeek(week, new Date().getFullYear(),i);
+    for (let j = 0; j < liste.length; j++) {
+      newWeek[i].tider.push(liste[j]);
+    }
+  }
+  return newWeek;
+}
+
+function getDateOfISOWeek(w, y, weekday) {
+  var simple = new Date(y, 0, 1 + (w - 1) * 7);
+  var dow = simple.getDay();
+  var ISOweekStart = simple;
+  if (dow <= 4)
+      ISOweekStart.setDate(simple.getDate() - simple.getDay() + 1);
+  else
+      ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay());
+      ISOweekStart.setDate(ISOweekStart.getDate() + weekday);
+      return (ISOweekStart.getDate()) + "/" + (ISOweekStart.getMonth() + 1);
+}
+
+
+//getRequest
 app.get('/', async (request, response) => {
-  response.render('kalender');
+  response.render('kalender', {list : liste, dage : createWeek(0), weekNumber : weekNumber});
 })
 
 // Eksempel på at hente fra database med pug
@@ -54,7 +121,7 @@ app.get('/index', async (request, response) => {
 })
 
 app.get('/information', async (request, response) => {
-  response.render('information');
+  response.render('information', sendTider);
 })
 
 //Forsøg på get

@@ -1,7 +1,12 @@
 html
+
     head
+        style 
+            include ./kalender.css
+
         title Kalender 
     body
+
         div
             label Vælg produkt 
             input(list = "Produkttyper")
@@ -9,22 +14,36 @@ html
                 option(value = "Familieportræt")
                 option(value = "Bryllup")
                 option(value = "Pugstars!")
-        div
-            label(id = "Årstal") 2022
-            button(id = "Tilbage") <- tilbage
-            label(id = "Uge") uge 1
-            button(id = "Frem") frem ->
-            table(id = "Kalender") 
-                tr 
-                    td Mandag
-                    td Tirsdag
-                    td Onsdag
-                    td Torsdag
-                    td Fredag
-                    td Lørdag 
-                    td Søndag
-                
-            
-            
-        button(id = "Videre") videre ->
+    
+        center 
+            div
+                table
+                    tr 
+                        td 
+                            label(id = "Årstal")
+                                p=new Date().getFullYear()
+                        td 
+                            button(id = "Tilbage") <- tilbage
+                        td 
+                            label(id ="Uge") Uge #{weekNumber}
+                        td 
+                            button(id = "Frem") Frem ->
+        
 
+        center 
+            div(class="grid-containerHori")
+                div(class="grid-item-tid")
+                    b Tider
+                each dag in dage
+                    div(class="grid-item")
+                        b #{dag.navn}
+        center 
+            div(class="grid-containerVert")  
+                each tid in list 
+                    div(class="grid-item-tid")
+                        b #{tid.tid}
+                each dag in dage
+                    each ledigTid in dag.tider
+                        div(class="grid-item")
+                            b #{ledigTid.tid}
+            
