@@ -121,7 +121,7 @@ app.get('/index', async (request, response) => {
 })
 
 app.get('/information', async (request, response) => {
-  response.render('information', sendTider);
+  response.render('information', {list : liste});
 })
 
 /*Antaget at oprettelse af en booking tilføjer den nye booking til DB-collection tider (funktionen henter data herfra)*/
@@ -192,4 +192,4 @@ app.delete('/', (request, response) => {
   response.send("Deleted");
 });
 
-app.listen(8080, () => console.log('Lytter nu på port 8080'));
+app.listen(8888, () => console.log('Lytter nu på port 8080'));
