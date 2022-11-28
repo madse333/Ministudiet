@@ -1,27 +1,49 @@
 html
+
     head
+        style 
+            include ./kalender.css
+
         title Kalender 
     body
-        label Vælg produkt 
-        input 
-        datalist 
-            option value = "Familieportræt"
-            option value = "Bryllup"
-            option value = "Pugstars!"
 
-        label 2022
+        div
+            label Vælg produkt 
+            input(list = "Produkttyper")
+            datalist(id = "Produkttyper")
+                option(value = "Familieportræt")
+                option(value = "Bryllup")
+                option(value = "Pugstars!")
+    
+        center 
+            div
+                table
+                    tr 
+                        td 
+                            label(id = "Årstal")
+                                p=new Date().getFullYear()
+                        td 
+                            button(id = "Tilbage") <- tilbage
+                        td 
+                            label(id ="Uge") Uge #{weekNumber}
+                        td 
+                            button(id = "Frem") Frem ->
+        
 
-
-
-
-
-//- <label for="ice-cream-choice">Choose a flavor:</label>
-//- <input list="ice-cream-flavors" id="ice-cream-choice" name="ice-cream-choice">
-
-//- <datalist id="ice-cream-flavors">
-//-     <option value="Chocolate">
-//-     <option value="Coconut">
-//-     <option value="Mint">
-//-     <option value="Strawberry">
-//-     <option value="Vanilla">
-//- </datalist>
+        center 
+            div(class="grid-containerHori")
+                div(class="grid-item-tid")
+                    b Tider
+                each dag in dage
+                    div(class="grid-item")
+                        b #{dag.navn}
+        center 
+            div(class="grid-containerVert")  
+                each tid in list 
+                    div(class="grid-item-tid")
+                        b #{tid.tid}
+                each dag in dage
+                    each ledigTid in dag.tider
+                        div(class="grid-item")
+                            b #{ledigTid.tid}
+            

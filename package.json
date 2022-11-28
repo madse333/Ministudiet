@@ -12,6 +12,8 @@
   "dependencies": {
     "express": "^4.18.2",
     "firebase": "^9.13.0",
-    "pug": "^3.0.2"
+    "jsdom": "^20.0.3",
+    "pug": "^3.0.2",
+    "require": "^0.4.4"
   }
 }
