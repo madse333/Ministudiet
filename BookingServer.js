@@ -168,6 +168,7 @@ async function getTider(){                                //viser alle bookede t
       data.docId = doc.id;
       return data;
   })
+  
   tidsListe = tidsListe.map(({datoStart, datoSlut}) => ({datoStart, datoSlut}));
 
   return JSON.stringify(tidsListe);
@@ -186,19 +187,12 @@ async function addDokument(collectionNavn, dokumentID, data){
  await setDoc(doc(firesbase_db,collectionNavn,dokumentID), data);
 } 
 
-let buuuuh = {navn : "John"};
+// let buuuuh = {navn : "John"};
 
 // PO ønsker at kunden kan vælge en ledig tid og booke den (ADD SKABELON)
 // Datoer består af array
 async function bookTid(kundeNavn, mail, telefonnummer, type, datoStart, datoSlut, lokation) {
- let randomBookingNr = Math.floor(Math.random() * 10000000)+1;
- //let  randomBookingNr = 8244175;
- const q = query(collection(firesbase_db, "tider"), where("bookingNr", "==", randomBookingNr));
- const querySnapshot = await getDocs(q);
 
- if (querySnapshot.size > 0){
-   randomBookingNr = Math.floor(Math.random() * 10000000)+1
- }
   const docRef = await addDoc(collection(firesbase_db, "tider" ), {
     kundeNavn: kundeNavn,
     mail: mail,
@@ -206,24 +200,11 @@ async function bookTid(kundeNavn, mail, telefonnummer, type, datoStart, datoSlut
     type: type,
     datoStart : datoStart,
     datoSlut : datoSlut,
-    lokation : lokation,
-    bookingNr : randomBookingNr
+    lokation : lokation
   });
 }
 
-//bookTid("John", "John@gmail.com", "12345678", "Par", [15, 12, 2022, 1200], [15, 12, 2022, 1300], "Viby J");
-
-// PO ønsker at kunden kan aflyse egne bookinger i systemet
-async function aflysTid(bookingNr) {
-  const q = query(collection(firesbase_db, "tider"), where("bookingNr", "==", bookingNr));
-  const querySnapshot = await getDocs(q);
-
-  let booking = querySnapshot.docs[0].id;
-  
-  await deleteDoc(doc(firesbase_db, "tider", booking)); 
-
-}
-
+bookTid("John", "John@gmail.com", "12345678", "Par", [15, 12, 2022, 1200], [15, 12, 2022, 1300])
 
 //Koden viser priserne i en liste - KUN FOR FAMILIE OG PAR
 async function chooseProductsFamilieOgPar(){
@@ -263,4 +244,4 @@ app.delete('/', (request, response) => {
   response.send("Deleted");
 });
 
-app.listen(8888, () => console.log('Lytter nu på port 8080'));
+app.listen(8888, () => console.log('Lytter nu på port 8888'));
