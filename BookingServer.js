@@ -22,6 +22,7 @@ import { getAnalytics } from "firebase/analytics";
 import { getFirestore, collection, getDocs, updateDoc, doc, deleteDoc, addDoc, getDoc, query, where, setDoc } from 'firebase/firestore'
 import { async } from '@firebase/util';
 import { stringify } from 'querystring';
+import { exit } from 'process';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -171,6 +172,17 @@ let buuuuh = {navn : "John"};
 // Datoer består af array
 async function bookTid(kundeNavn, mail, telefonnummer, type, datoStart, datoSlut, lokation) {
 
+  //let randomBookingNr = Math.floor(Math.random() * 10000000)+1;
+  let  randomBookingNr = 8244175;
+  
+  const q = query(collection(firesbase_db, "tider"), where("bookingNr", "==", randomBookingNr));
+  const querySnapshot = await getDocs(q);
+  console.log(querySnapshot.size);
+
+  if (querySnapshot.size > 0){
+    randomBookingNr = Math.floor(Math.random() * 10000000)+1
+  }
+
   const docRef = await addDoc(collection(firesbase_db, "tider" ), {
     kundeNavn: kundeNavn,
     mail: mail,
@@ -178,11 +190,12 @@ async function bookTid(kundeNavn, mail, telefonnummer, type, datoStart, datoSlut
     type: type,
     datoStart : datoStart,
     datoSlut : datoSlut,
-    lokation : lokation
+    lokation : lokation,
+    bookingNr : randomBookingNr,
   });
 }
 
-bookTid("John", "John@gmail.com", "12345678", "Par", [15, 12, 2022, 1200], [15, 12, 2022, 1300])
+bookTid("John", "John@gmail.com", "12345678", "Par", [15, 12, 2022, 1200], [15, 12, 2022, 1300], "Viby J")
 
 //Koden viser priserne i en liste - KUN FOR FAMILIE OG PAR
 async function chooseProductsFamilieOgPar(){
