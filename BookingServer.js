@@ -139,33 +139,7 @@ app.post('/shiftWeeks', (request, response) => {
   request.session.week = week
   response.status(201).send(['købt']);
 })
-//Forsøg på get
-  //const docRef = doc(firesbase_db, "Bryllupper", "denEnkelte");
-  //const docSnap = await getDoc(docRef);
 
-// if (docSnap.exists()) {
-//   console.log("Document data:", docSnap.data());
-// } else {
-//   console.log("No such document!");
-// }
-
-/*Antaget at oprettelse af en booking tilføjer den nye booking til DB-collection Booking2023 (funktionen henter data herfra)*/
-//Forsøg på get af alle dok i collection
-// async function getAllDocInCollection(collectionName) {
-//   const collectionSnapshot = await getDocs(collection(firesbase_db, collectionName));
-//   collectionSnapshot.forEach((doc) => {
-//     console.log(doc.id, " => ", doc.data());
-//   });
-// }
-
-// async function getAllDocInCollection(collectionName) {
-//   const collectionSnapshot = await getDocs(collection(firesbase_db, collectionName));
-//   var dataString = "";
-//   collectionSnapshot.forEach((doc) => {
-//     dataString = JSON.stringify(doc.data());
-//   })
-//   return dataString;
-// }
 
 /*Antaget at oprettelse af en booking tilføjer den nye booking til DB-collection tider (funktionen henter data herfra)*/
 async function getTider(){                                //viser alle bookede tider
@@ -180,19 +154,6 @@ async function getTider(){                                //viser alle bookede t
   return JSON.stringify(tidsListe);
 }
 
-
-
-
-//postRequest
-// app.post(){
-//   response
-// }
-
-//create collection
-/*
-En collection kan ikke oprettes uden min. ét dokument,
-hvis ikke den gives et dokumentID og dokumentData, så opretter den bare en test
-*/
 
 //SKABELON
 async function addDokument(collectionNavn, dokumentID, data){
