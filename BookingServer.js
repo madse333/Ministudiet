@@ -197,6 +197,10 @@ async function bookTid(kundeNavn, mail, telefonnummer, type, datoStart, datoSlut
  const querySnapshot = await getDocs(q);
  console.log(querySnapshot.size);
 
+ if (querySnapshot.size > 0){
+  randomBookingNr = Math.floor(Math.random() * 10000000)+1
+}
+
   const docRef = await addDoc(collection(firesbase_db, "tider" ), {
     kundeNavn: kundeNavn,
     mail: mail,
@@ -204,7 +208,8 @@ async function bookTid(kundeNavn, mail, telefonnummer, type, datoStart, datoSlut
     type: type,
     datoStart : datoStart,
     datoSlut : datoSlut,
-    lokation : lokation
+    lokation : lokation,
+    bookingNr : randomBookingNr
   });
 }
 
