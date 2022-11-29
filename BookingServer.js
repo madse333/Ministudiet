@@ -195,9 +195,6 @@ async function bookTid(kundeNavn, mail, telefonnummer, type, datoStart, datoSlut
  //let  randomBookingNr = 8244175;
  const q = query(collection(firesbase_db, "tider"), where("bookingNr", "==", randomBookingNr));
  const querySnapshot = await getDocs(q);
- console.log(querySnapshot.size);
-
-querySnapshot.docs.
 
  if (querySnapshot.size > 0){
    randomBookingNr = Math.floor(Math.random() * 10000000)+1
@@ -227,7 +224,6 @@ async function aflysTid(bookingNr) {
 
 }
 
-aflysTid(4335523)
 
 //Koden viser priserne i en liste - KUN FOR FAMILIE OG PAR
 async function chooseProductsFamilieOgPar(){
