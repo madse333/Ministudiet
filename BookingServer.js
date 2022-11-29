@@ -179,12 +179,13 @@ let buuuuh = {navn : "John"};
 // Datoer består af array
 async function bookTid(kundeNavn, mail, telefonnummer, type, datoStart, datoSlut, lokation) {
 
- //let randomBookingNr = Math.floor(Math.random() * 10000000)+1;
- let  randomBookingNr = 8244175;
+ let randomBookingNr = Math.floor(Math.random() * 10000000)+1;
 
  const q = query(collection(firesbase_db, "tider"), where("bookingNr", "==", randomBookingNr));
  const querySnapshot = await getDocs(q);
  console.log(querySnapshot.size);
+
+querySnapshot.docs.
 
  if (querySnapshot.size > 0){
    randomBookingNr = Math.floor(Math.random() * 10000000)+1
