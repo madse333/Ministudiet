@@ -180,9 +180,6 @@ async function getTider(){                                //viser alle bookede t
   return JSON.stringify(tidsListe);
 }
 
-//HUSK ' ' 
-// console.log(getAllDocInCollection('Booking2023'));
-//console.log(await getTider());
 
 
 
@@ -196,22 +193,6 @@ async function getTider(){                                //viser alle bookede t
 En collection kan ikke oprettes uden min. ét dokument,
 hvis ikke den gives et dokumentID og dokumentData, så opretter den bare en test
 
-*/
-/*
-async function addCollection(collectionNavn, dokumentID, dokumentData){
-    firebase_app.database().ref
-}
-*/
-
-
-
-
-//set dokument - TEST MIG
-/*
-Skal kende collection navn
-Find selv på navn til dokumentID
-Data er værdien du vil have ind
-*/
 //SKABELON
 async function addDokument(collectionNavn, dokumentID, data){
  await setDoc(doc(firesbase_db,collectionNavn,dokumentID), data);
@@ -219,23 +200,6 @@ async function addDokument(collectionNavn, dokumentID, data){
 
 let buuuuh = {navn : "John"};
 
-//SKAL HAVEET OBJEKT
-//addDokument('TestKollektion', 'Test2', buuuuh);
-
-
-//Update dokument - ikke færdig
-// PO ønsker at kunden kan vælge en ledig tid og booke den (UPDATE SKABELON)
-/*
-async function bookTid(dokumentID, kundenavn, kundeMail, telefonnr){
-  let updateDocInfo = doc(firesbase_db, 'tider', dokumentID);
-    await updateDoc(updateDocInfo, {
-    ledig : false,
-    kundeNavn : kundenavn,
-    mail : kundeMail,
-    telefonnummer : telefonnr
-  });
-}
-*/
 // PO ønsker at kunden kan vælge en ledig tid og booke den (ADD SKABELON)
 async function bookTid(kundeNavn, mail, telefonnummer, type) {
 
@@ -246,17 +210,6 @@ async function bookTid(kundeNavn, mail, telefonnummer, type) {
     type: type
   });
 }
-
-//bookTid("John", "John@gmail.com", "12345678", "Bryllup");
-//PO ønsker at kunden kan vælge forskellige produkter og se tilhørende priser
-/*
-Produkterne skal ligge i en dropdown
-Skal kunne klikke på ét produkt
-Dernæst vises indholdet af prisen for hver pakke
-*/
-
-// Viser de to produkter Bryllupper og FamilieOgPar
-
 
 
 //Koden viser priserne i en liste - KUN FOR FAMILIE OG PAR
