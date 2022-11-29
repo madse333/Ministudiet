@@ -192,6 +192,7 @@ async function getTider(){                                //viser alle bookede t
 /*
 En collection kan ikke oprettes uden min. ét dokument,
 hvis ikke den gives et dokumentID og dokumentData, så opretter den bare en test
+*/
 
 //SKABELON
 async function addDokument(collectionNavn, dokumentID, data){
