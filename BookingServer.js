@@ -223,4 +223,4 @@ app.delete('/', (request, response) => {
   response.send("Deleted");
 });
 
-app.listen(8888, () => console.log('Lytter nu på port 8888'));
+app.listen(8888, () => console.log('Lytter nu på port 8080'));
