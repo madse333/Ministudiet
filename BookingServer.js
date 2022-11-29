@@ -192,6 +192,10 @@ async function addDokument(collectionNavn, dokumentID, data){
 // PO ønsker at kunden kan vælge en ledig tid og booke den (ADD SKABELON)
 // Datoer består af array
 async function bookTid(kundeNavn, mail, telefonnummer, type, datoStart, datoSlut, lokation) {
+ let randomBookingNr = Math.floor(Math.random() * 10000000)+1;
+ const q = query(collection(firesbase_db, "tider"), where("bookingNr", "==", randomBookingNr));
+ const querySnapshot = await getDocs(q);
+ console.log(querySnapshot.size);
 
   const docRef = await addDoc(collection(firesbase_db, "tider" ), {
     kundeNavn: kundeNavn,
@@ -204,7 +208,27 @@ async function bookTid(kundeNavn, mail, telefonnummer, type, datoStart, datoSlut
   });
 }
 
-bookTid("John", "John@gmail.com", "12345678", "Par", [15, 12, 2022, 1200], [15, 12, 2022, 1300])
+//bookTid("John", "John@gmail.com", "12345678", "Par", [15, 12, 2022, 1200], [15, 12, 2022, 1300], "Viby J");
+
+// #9 PO ønsker at kunden kan aflyse egne bookinger i systemet
+async function aflysTid(bookingNr, mail) {
+  const q = query(collection(firesbase_db, "tider"), where("bookingNr", "==", bookingNr), where("mail", "==", mail));
+  const querySnapshot = await getDocs(q);
+
+  let booking = querySnapshot.docs[0].id;
+  
+  await deleteDoc(doc(firesbase_db, "tider", booking)); 
+}
+
+//aflysTid(6831746, "John@gmail.com")
+
+// #5 PO ønsker at kunden selv kan ombooke en fotografering
+async function ombookTid(bookingNr, mail, kundeNavn, telefonnummer, type, datoStart, datoSlut, lokation) {
+  bookTid(kundeNavn, mail, telefonnummer, type, datoStart, datoSlut, lokation)
+  aflysTid(bookingNr, mail);
+}
+
+ombookTid(6460725, "John@gmail.com", "John", "12345678", "Bryllup", [15,12,2022,1300], [15,12,2022,1200], "Aarhus C" )
 
 //Koden viser priserne i en liste - KUN FOR FAMILIE OG PAR
 async function chooseProductsFamilieOgPar(){
