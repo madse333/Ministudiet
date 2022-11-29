@@ -1,5 +1,6 @@
 import express from 'express';
 const app = express();
+import sessions from 'express-session';
 
 import path from 'path';
 import { fileURLToPath } from "url";
@@ -9,6 +10,8 @@ const __dirname = path.dirname(_filename);
 
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, '/views'));
+
+app.use(sessions({ secret: 'hemmelig', saveUninitialized: true, cookie: { maxAge: 1000*60*20 }, resave: false }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -111,6 +114,7 @@ function getDateOfISOWeek(w, y, weekday) {
 
 //getRequest
 app.get('/', async (request, response) => {
+  weekNumber = Math.ceil(Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 1)) /(24 * 60 * 60 * 1000))/7);
   response.render('kalender', {list : liste, dage : createWeek(0), weekNumber : weekNumber});
 })
 
@@ -124,6 +128,19 @@ app.get('/information', async (request, response) => {
   response.render('information', {list : liste});
 })
 
+app.post('/shiftWeeks', (request, response) => {
+  const { value } = request.body;
+  console.log(value)
+  let week = request.session.kurv;
+  if (week == null) {
+      week = [];
+  }
+  weekNumber += Number(value);
+  request.session.week = week
+  response.status(201).send(['købt']);
+})
+
+
 /*Antaget at oprettelse af en booking tilføjer den nye booking til DB-collection tider (funktionen henter data herfra)*/
 async function getTider(){                                //viser alle bookede tider
   let tidsCol = collection(firesbase_db, 'tider')
@@ -132,10 +149,21 @@ async function getTider(){                                //viser alle bookede t
   let tidsListe = tider.docs.map(doc =>{
       let data = doc.data();
       data.docId = doc.id;
-      return data;
+      return data.tidspunktStart;
   })
+
+  tidsListe = tidsListe.map(({datoStart, datoSlut}) => ({datoStart, datoSlut}));
+
   return JSON.stringify(tidsListe);
+ 
 }
+
+console.log(await getTider());
+
+//HUSK ' ' 
+// console.log(getAllDocInCollection('Booking2023'));
+//console.log(await getTider());
+
 
 
 //SKABELON
@@ -146,16 +174,21 @@ async function addDokument(collectionNavn, dokumentID, data){
 let buuuuh = {navn : "John"};
 
 // PO ønsker at kunden kan vælge en ledig tid og booke den (ADD SKABELON)
-async function bookTid(kundeNavn, mail, telefonnummer, type) {
+// Datoer består af array
+async function bookTid(kundeNavn, mail, telefonnummer, type, datoStart, datoSlut, lokation) {
 
   const docRef = await addDoc(collection(firesbase_db, "tider" ), {
     kundeNavn: kundeNavn,
     mail: mail,
     telefonnummer: telefonnummer,
-    type: type
+    type: type,
+    datoStart : datoStart,
+    datoSlut : datoSlut,
+    lokation : lokation
   });
 }
 
+bookTid("John", "John@gmail.com", "12345678", "Par", [15, 12, 2022, 1200], [15, 12, 2022, 1300])
 
 //Koden viser priserne i en liste - KUN FOR FAMILIE OG PAR
 async function chooseProductsFamilieOgPar(){
@@ -183,6 +216,8 @@ async function chooseProductsBryllupper(){
   return JSON.stringify(productList);
 }
 console.log(await chooseProductsBryllupper());
+
+
 //putRequest5
 
 //deleteRequest
@@ -192,4 +227,4 @@ app.delete('/', (request, response) => {
   response.send("Deleted");
 });
 
-app.listen(8080, () => console.log('Lytter nu på port 8080'));
+app.listen(8888, () => console.log('Lytter nu på port 8080'));

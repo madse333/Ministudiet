@@ -11,9 +11,11 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
+    "express-session": "^1.17.3",
     "firebase": "^9.13.0",
     "jsdom": "^20.0.3",
     "pug": "^3.0.2",
-    "require": "^0.4.4"
+    "require": "^0.4.4",
+    "session": "^0.1.0"
   }
 }
