@@ -155,7 +155,7 @@ async function getTider(){                                //viser alle bookede t
   let tidsListe = tider.docs.map(doc =>{
       let data = doc.data();
       data.docId = doc.id;
-      return data.tidspunktStart;
+      return data;
   })
   tidsListe = tidsListe.map(({datoStart, datoSlut}) => ({datoStart, datoSlut}));
 
@@ -164,7 +164,7 @@ async function getTider(){                                //viser alle bookede t
 
 //HUSK ' ' 
 // console.log(getAllDocInCollection('Booking2023'));
-//console.log(await getTider());
+console.log(await getTider());
 
 
 
@@ -178,10 +178,8 @@ let buuuuh = {navn : "John"};
 // PO ønsker at kunden kan vælge en ledig tid og booke den (ADD SKABELON)
 // Datoer består af array
 async function bookTid(kundeNavn, mail, telefonnummer, type, datoStart, datoSlut, lokation) {
-
- //let randomBookingNr = Math.floor(Math.random() * 10000000)+1;
- let  randomBookingNr = 8244175;
-
+ let randomBookingNr = Math.floor(Math.random() * 10000000)+1;
+ //let  randomBookingNr = 8244175;
  const q = query(collection(firesbase_db, "tider"), where("bookingNr", "==", randomBookingNr));
  const querySnapshot = await getDocs(q);
  console.log(querySnapshot.size);
@@ -189,7 +187,6 @@ async function bookTid(kundeNavn, mail, telefonnummer, type, datoStart, datoSlut
  if (querySnapshot.size > 0){
    randomBookingNr = Math.floor(Math.random() * 10000000)+1
  }
-
   const docRef = await addDoc(collection(firesbase_db, "tider" ), {
     kundeNavn: kundeNavn,
     mail: mail,
@@ -202,7 +199,20 @@ async function bookTid(kundeNavn, mail, telefonnummer, type, datoStart, datoSlut
   });
 }
 
-bookTid("John", "John@gmail.com", "12345678", "Par", [15, 12, 2022, 1200], [15, 12, 2022, 1300], "Viby J");
+//bookTid("John", "John@gmail.com", "12345678", "Par", [15, 12, 2022, 1200], [15, 12, 2022, 1300], "Viby J");
+
+// PO ønsker at kunden kan aflyse egne bookinger i systemet
+async function aflysTid(bookingNr) {
+  const q = query(collection(firesbase_db, "tider"), where("bookingNr", "==", bookingNr));
+  const querySnapshot = await getDocs(q);
+
+  let booking = querySnapshot.docs[0].id;
+  
+  await deleteDoc(doc(firesbase_db, "tider", booking)); 
+
+}
+
+aflysTid(4335523)
 
 //Koden viser priserne i en liste - KUN FOR FAMILIE OG PAR
 async function chooseProductsFamilieOgPar(){
@@ -216,7 +226,8 @@ async function chooseProductsFamilieOgPar(){
   })
   return JSON.stringify(productList);
 }
-//console.log(await chooseProductsFamilieOgPar());
+console.log(await chooseProductsFamilieOgPar());
+
 //Viser prisen for bryllupper
 async function chooseProductsBryllupper(){
   let productCol = collection(firesbase_db, 'Bryllupper')
