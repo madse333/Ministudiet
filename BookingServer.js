@@ -128,6 +128,11 @@ app.get('/information', async (request, response) => {
   response.render('information', {list : liste});
 })
 
+// Eksempel på at hente fra database med pug
+app.get('/statistik', async (request, response) => {
+  response.render('statistik')
+})
+
 app.post('/shiftWeeks', (request, response) => {
   const { value } = request.body;
   console.log(value)
