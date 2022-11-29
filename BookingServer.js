@@ -51,6 +51,8 @@ const firesbase_db = getFirestore(firebase_app);
 class Dag {
   constructor(navn) {
       this.navn = navn;
+      this.dato;
+      this.årstal;
       this.tider = [];
   }
  }
@@ -85,12 +87,13 @@ const liste = [tid1, tid2, tid3, tid4, tid5, tid6, tid7, tid8, tid9];
 // let fremButton = document.querySelector('Button');
 // fremButton.addEventListener("click", skiftUge);
 
-function createWeek(weekNumber){
+function createWeek(weekNumber, årstal){
   let newWeek = JSON.parse(JSON.stringify(dage));
   console.log(dage);
   let week = weekNumber;
   for (let i = 0; i < newWeek.length; i++) {
-    newWeek[i].navn += getDateOfISOWeek(week, new Date().getFullYear(),i);
+    newWeek[i].dato = getDateOfISOWeek(week, new Date().getFullYear(),i);
+    newWeek[i].årstal = årstal;
     for (let j = 0; j < liste.length; j++) {
       newWeek[i].tider.push(liste[j]);
     }
@@ -124,7 +127,7 @@ app.get('/', async (request, response) => {
     årstal ++;
   }
 
-  response.render('kalender', {list : liste, dage : createWeek(weekNumber), weekNumber : weekNumber, årstal : årstal});
+  response.render('kalender', {list : liste, dage : createWeek(weekNumber, årstal), weekNumber : weekNumber, årstal : årstal});
 })
 
 // Eksempel på at hente fra database med pug
@@ -163,7 +166,7 @@ async function getTider(){                                //viser alle bookede t
   let tidsListe = tider.docs.map(doc =>{
       let data = doc.data();
       data.docId = doc.id;
-      return data.tidspunktStart;
+      return data;
   })
   tidsListe = tidsListe.map(({datoStart, datoSlut}) => ({datoStart, datoSlut}));
 
