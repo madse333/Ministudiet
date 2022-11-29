@@ -1,5 +1,6 @@
 import express from 'express';
 const app = express();
+import sessions from 'express-session';
 
 import path from 'path';
 import { fileURLToPath } from "url";
@@ -9,6 +10,8 @@ const __dirname = path.dirname(_filename);
 
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, '/views'));
+
+app.use(sessions({ secret: 'hemmelig', saveUninitialized: true, cookie: { maxAge: 1000*60*20 }, resave: false }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -111,6 +114,7 @@ function getDateOfISOWeek(w, y, weekday) {
 
 //getRequest
 app.get('/', async (request, response) => {
+  weekNumber = Math.ceil(Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 1)) /(24 * 60 * 60 * 1000))/7);
   response.render('kalender', {list : liste, dage : createWeek(0), weekNumber : weekNumber});
 })
 
@@ -124,6 +128,17 @@ app.get('/information', async (request, response) => {
   response.render('information', {list : liste});
 })
 
+app.post('/shiftWeeks', (request, response) => {
+  const { value } = request.body;
+  console.log(value)
+  let week = request.session.kurv;
+  if (week == null) {
+      week = [];
+  }
+  weekNumber += Number(value);
+  request.session.week = week
+  response.status(201).send(['købt']);
+})
 //Forsøg på get
   //const docRef = doc(firesbase_db, "Bryllupper", "denEnkelte");
   //const docSnap = await getDoc(docRef);
@@ -279,4 +294,4 @@ app.delete('/', (request, response) => {
   response.send("Deleted");
 });
 
-app.listen(8888, () => console.log('Lytter nu på port 8080'));
+app.listen(8888, () => console.log('Lytter nu på port 8888'));
