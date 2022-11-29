@@ -51,6 +51,8 @@ const firesbase_db = getFirestore(firebase_app);
 class Dag {
   constructor(navn) {
       this.navn = navn;
+      this.dato;
+      this.årstal;
       this.tider = [];
   }
  }
@@ -85,12 +87,13 @@ const liste = [tid1, tid2, tid3, tid4, tid5, tid6, tid7, tid8, tid9];
 // let fremButton = document.querySelector('Button');
 // fremButton.addEventListener("click", skiftUge);
 
-function createWeek(weekNumber){
+function createWeek(weekNumber, årstal){
   let newWeek = JSON.parse(JSON.stringify(dage));
   console.log(dage);
   let week = weekNumber;
   for (let i = 0; i < newWeek.length; i++) {
-    newWeek[i].navn += getDateOfISOWeek(week, new Date().getFullYear(),i);
+    newWeek[i].dato = getDateOfISOWeek(week, new Date().getFullYear(),i);
+    newWeek[i].årstal = årstal;
     for (let j = 0; j < liste.length; j++) {
       newWeek[i].tider.push(liste[j]);
     }
@@ -124,7 +127,7 @@ app.get('/', async (request, response) => {
     årstal ++;
   }
 
-  response.render('kalender', {list : liste, dage : createWeek(weekNumber), weekNumber : weekNumber, årstal : årstal});
+  response.render('kalender', {list : liste, dage : createWeek(weekNumber, årstal), weekNumber : weekNumber, årstal : årstal});
 })
 
 // Eksempel på at hente fra database med pug
@@ -173,7 +176,7 @@ async function getTider(){                                //viser alle bookede t
 
 //HUSK ' ' 
 // console.log(getAllDocInCollection('Booking2023'));
-//console.log(await getTider());
+console.log(await getTider());
 
 console.log(await getTider())
 
@@ -184,22 +187,11 @@ async function addDokument(collectionNavn, dokumentID, data){
  await setDoc(doc(firesbase_db,collectionNavn,dokumentID), data);
 } 
 
-let buuuuh = {navn : "John"};
+// let buuuuh = {navn : "John"};
 
 // PO ønsker at kunden kan vælge en ledig tid og booke den (ADD SKABELON)
 // Datoer består af array
 async function bookTid(kundeNavn, mail, telefonnummer, type, datoStart, datoSlut, lokation) {
-
- //let randomBookingNr = Math.floor(Math.random() * 10000000)+1;
- let  randomBookingNr = 8244175;
-
- const q = query(collection(firesbase_db, "tider"), where("bookingNr", "==", randomBookingNr));
- const querySnapshot = await getDocs(q);
- console.log(querySnapshot.size);
-
- if (querySnapshot.size > 0){
-   randomBookingNr = Math.floor(Math.random() * 10000000)+1
- }
 
   const docRef = await addDoc(collection(firesbase_db, "tider" ), {
     kundeNavn: kundeNavn,
@@ -208,12 +200,11 @@ async function bookTid(kundeNavn, mail, telefonnummer, type, datoStart, datoSlut
     type: type,
     datoStart : datoStart,
     datoSlut : datoSlut,
-    lokation : lokation,
-    bookingNr : randomBookingNr
+    lokation : lokation
   });
 }
 
-bookTid("John", "John@gmail.com", "12345678", "Par", [15, 12, 2022, 1200], [15, 12, 2022, 1300], "Viby J");
+bookTid("John", "John@gmail.com", "12345678", "Par", [15, 12, 2022, 1200], [15, 12, 2022, 1300])
 
 //Koden viser priserne i en liste - KUN FOR FAMILIE OG PAR
 async function chooseProductsFamilieOgPar(){
@@ -227,7 +218,8 @@ async function chooseProductsFamilieOgPar(){
   })
   return JSON.stringify(productList);
 }
-//console.log(await chooseProductsFamilieOgPar());
+console.log(await chooseProductsFamilieOgPar());
+
 //Viser prisen for bryllupper
 async function chooseProductsBryllupper(){
   let productCol = collection(firesbase_db, 'Bryllupper')
@@ -252,4 +244,4 @@ app.delete('/', (request, response) => {
   response.send("Deleted");
 });
 
-app.listen(8888, () => console.log('Lytter nu på port 8080'));
+app.listen(8888, () => console.log('Lytter nu på port 8888'));
