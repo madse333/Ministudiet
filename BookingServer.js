@@ -239,6 +239,8 @@ async function chooseProductsBryllupper(){
   return JSON.stringify(productList);
 }
 console.log(await chooseProductsBryllupper());
+
+
 //putRequest5
 
 //deleteRequest
