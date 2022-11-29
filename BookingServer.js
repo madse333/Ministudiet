@@ -192,4 +192,4 @@ app.delete('/', (request, response) => {
   response.send("Deleted");
 });
 
-app.listen(8888, () => console.log('Lytter nu på port 8080'));
+app.listen(8080, () => console.log('Lytter nu på port 8080'));
