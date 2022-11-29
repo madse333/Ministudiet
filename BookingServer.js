@@ -163,8 +163,9 @@ async function getTider(){                                //viser alle bookede t
   let tidsListe = tider.docs.map(doc =>{
       let data = doc.data();
       data.docId = doc.id;
-      return data.tidspunktStart;
+      return data;
   })
+  
   tidsListe = tidsListe.map(({datoStart, datoSlut}) => ({datoStart, datoSlut}));
 
   return JSON.stringify(tidsListe);
