@@ -151,14 +151,10 @@ async function getTider(){                                //viser alle bookede t
       data.docId = doc.id;
       return data.tidspunktStart;
   })
-
   tidsListe = tidsListe.map(({datoStart, datoSlut}) => ({datoStart, datoSlut}));
 
   return JSON.stringify(tidsListe);
- 
 }
-
-console.log(await getTider());
 
 //HUSK ' ' 
 // console.log(getAllDocInCollection('Booking2023'));
