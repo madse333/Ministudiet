@@ -21,7 +21,6 @@ html
  
             let clickfunction = async (value) => { 
                 try {
-                    alert(value);
                     await post("http://localhost:8888/shiftWeeks", {value : value});
                     window.location.href = "http://localhost:8888/";
                 }
@@ -46,12 +45,15 @@ html
                 table
                     tr 
                         td 
-                            label(id = "Årstal")
-                                p=new Date().getFullYear()
+                            label(id = "Årstal") #{årstal}
                         td 
                             button(id = "Tilbage" onclick='clickfunction("' + (-1) + '")') <- tilbage
                         td 
-                            label(id ="Uge") Uge #{weekNumber}
+                            label(id ="Uge")
+                                if weekNumber > 52
+                                    p Uge #{weekNumber-52}
+                                else 
+                                    p Uge #{weekNumber}
                         td 
                             button(id = "Frem" onclick='clickfunction("' + 1 + '")') Frem ->
         

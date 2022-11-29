@@ -81,12 +81,10 @@ class Tid {
 
 const liste = [tid1, tid2, tid3, tid4, tid5, tid6, tid7, tid8, tid9];
 
-let weekNumber = Math.ceil(Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 1)) /(24 * 60 * 60 * 1000))/7);
-
 // let fremButton = document.querySelector('Button');
 // fremButton.addEventListener("click", skiftUge);
 
-function createWeek(){
+function createWeek(weekNumber){
   let newWeek = JSON.parse(JSON.stringify(dage));
   console.log(dage);
   let week = weekNumber;
@@ -114,8 +112,18 @@ function getDateOfISOWeek(w, y, weekday) {
 
 //getRequest
 app.get('/', async (request, response) => {
-  weekNumber = Math.ceil(Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 1)) /(24 * 60 * 60 * 1000))/7);
-  response.render('kalender', {list : liste, dage : createWeek(0), weekNumber : weekNumber});
+  let årstal = new Date().getFullYear();
+  let weekNumber = Math.ceil(Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 1)) /(24 * 60 * 60 * 1000))/7);
+  let week = request.session.week;
+  if (week == null) {
+      week = 0;
+  }
+  weekNumber += Number(week);
+  if (weekNumber > 52){
+    årstal ++;
+  }
+
+  response.render('kalender', {list : liste, dage : createWeek(weekNumber), weekNumber : weekNumber, årstal : årstal});
 })
 
 // Eksempel på at hente fra database med pug
@@ -130,12 +138,12 @@ app.get('/information', async (request, response) => {
 
 app.post('/shiftWeeks', (request, response) => {
   const { value } = request.body;
-  console.log(value)
-  let week = request.session.kurv;
+  let week = request.session.week;
   if (week == null) {
-      week = [];
+      week = 0;
   }
-  weekNumber += Number(value);
+  week += Number(value);
+  console.log(week);
   request.session.week = week
   response.status(201).send(['købt']);
 })
@@ -180,6 +188,8 @@ async function getTider(){                                //viser alle bookede t
   return JSON.stringify(tidsListe);
 }
 
+
+console.log(await getTider())
 
 
 
