@@ -154,7 +154,7 @@ async function getTider(){                                //viser alle bookede t
   let tidsListe = tider.docs.map(doc =>{
       let data = doc.data();
       data.docId = doc.id;
-      return data.tidspunktStart;
+      return data;
   })
   tidsListe = tidsListe.map(({datoStart, datoSlut}) => ({datoStart, datoSlut}));
 
@@ -172,24 +172,24 @@ async function addDokument(collectionNavn, dokumentID, data){
  await setDoc(doc(firesbase_db,collectionNavn,dokumentID), data);
 } 
 
-let buuuuh = {navn : "John"};
+// let buuuuh = {navn : "John"};
 
-// PO ønsker at kunden kan vælge en ledig tid og booke den (ADD SKABELON)
-// Datoer består af array
-async function bookTid(kundeNavn, mail, telefonnummer, type, datoStart, datoSlut, lokation) {
+// // PO ønsker at kunden kan vælge en ledig tid og booke den (ADD SKABELON)
+// // Datoer består af array
+// async function bookTid(kundeNavn, mail, telefonnummer, type, datoStart, datoSlut, lokation) {
 
-  const docRef = await addDoc(collection(firesbase_db, "tider" ), {
-    kundeNavn: kundeNavn,
-    mail: mail,
-    telefonnummer: telefonnummer,
-    type: type,
-    datoStart : datoStart,
-    datoSlut : datoSlut,
-    lokation : lokation
-  });
-}
+//   const docRef = await addDoc(collection(firesbase_db, "tider" ), {
+//     kundeNavn: kundeNavn,
+//     mail: mail,
+//     telefonnummer: telefonnummer,
+//     type: type,
+//     datoStart : datoStart,
+//     datoSlut : datoSlut,
+//     lokation : lokation
+//   });
+// }
 
-bookTid("John", "John@gmail.com", "12345678", "Par", [15, 12, 2022, 1200], [15, 12, 2022, 1300])
+// bookTid("John", "John@gmail.com", "12345678", "Par", [15, 12, 2022, 1200], [15, 12, 2022, 1300])
 
 //Koden viser priserne i en liste - KUN FOR FAMILIE OG PAR
 async function chooseProductsFamilieOgPar(){
@@ -228,4 +228,4 @@ app.delete('/', (request, response) => {
   response.send("Deleted");
 });
 
-app.listen(8888, () => console.log('Lytter nu på port 8080'));
+app.listen(8888, () => console.log('Lytter nu på port 8888'));
