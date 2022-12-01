@@ -116,7 +116,7 @@ function getDateOfISOWeek(w, y, weekday) {
 
 async function putBookinger(weeknumber, årstal){
   let newWeek = createWeek(weeknumber, årstal);
-  let bookinger = await getTider();
+  let bookinger = await Utils.getTider();
   for (let i = 0; i < bookinger.length; i++){
     for (let j = 0; j < newWeek.length; j++){
         if (newWeek[j].årstal == bookinger[i].datoStart[2]){
