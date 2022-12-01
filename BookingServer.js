@@ -190,6 +190,8 @@ app.post('/bookTid', (request, response) => {
     response.status(201).send(['booking markeret']);
 })
 
+
+
 //deleteRequest
 app.delete('/', (request, response) => {
   deleteXX(request.params.XX);
