@@ -26,7 +26,7 @@ function getCount() {
 // }
 
 
-function getAntal(måned, produkttype) {		
+export function getAntal(måned, produkttype) {		
     if (måned == {måned} && product == {produkttype}){   	        //kobles rigtigt op på db							
 	for (let i = 0; i < bookingerForMd.length; i++) {
         count++; 
@@ -35,8 +35,10 @@ function getAntal(måned, produkttype) {
 		}
 	}
 }
+// For at kalde getAntal fra statistik.js: console.log(getAntal);
+// For at kalde getAntal fra BookingServer.js: console.log(Utils2.getAntal);
 
-function getSamletTid(måned, produkttype) {		
+export function getSamletTid(måned, produkttype) {		
     let countMin = 0;
     if (måned == {måned} && product == {produkttype}){   	        //kobles rigtigt op på db							
         for (let i = 0; i < bookingerForMd.length; i++) {
