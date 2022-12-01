@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { json } from 'express';
 const app = express();
 import sessions from 'express-session';
 
@@ -72,15 +72,15 @@ class Tid {
       this.tid = tid;
   }
  }
- let tid1 = new Tid("8:00");
- let tid2 = new Tid("9:00");
- let tid3 = new Tid("10:00");
- let tid4 = new Tid("11:00");
- let tid5 = new Tid("12:00");
- let tid6 = new Tid("13:00");
- let tid7 = new Tid("14:00");
- let tid8 = new Tid("16:00");
- let tid9 = new Tid("18:00");
+ let tid1 = new Tid("0800");
+ let tid2 = new Tid("0900");
+ let tid3 = new Tid("1000");
+ let tid4 = new Tid("1100");
+ let tid5 = new Tid("1200");
+ let tid6 = new Tid("1300");
+ let tid7 = new Tid("1400");
+ let tid8 = new Tid("1600");
+ let tid9 = new Tid("1800");
 
 const liste = [tid1, tid2, tid3, tid4, tid5, tid6, tid7, tid8, tid9];
 
@@ -95,9 +95,10 @@ function createWeek(weekNumber, årstal){
     newWeek[i].dato = getDateOfISOWeek(week, new Date().getFullYear(),i);
     newWeek[i].årstal = årstal;
     for (let j = 0; j < liste.length; j++) {
-      newWeek[i].tider.push(liste[j]);
+      newWeek[i].tider.push(JSON.parse(JSON.stringify(liste[j])));
     }
   }
+  console.log(newWeek);
   return newWeek;
 }
 
@@ -113,21 +114,43 @@ function getDateOfISOWeek(w, y, weekday) {
       return (ISOweekStart.getDate()) + "/" + (ISOweekStart.getMonth() + 1);
 }
 
+async function putBookinger(weeknumber, årstal){
+  let newWeek = createWeek(weeknumber, årstal);
+  let bookinger = await getTider();
+  for (let i = 0; i < bookinger.length; i++){
+    for (let j = 0; j < newWeek.length; j++){
+        if (newWeek[j].årstal == bookinger[i].datoStart[2]){
+            let dato = newWeek[j].dato.split("/");
+            if (dato[0] == bookinger[i].datoStart[0] && dato[1] == bookinger[i].datoStart[1]){
+                newWeek[j].tider.find(obj => {
+                  if (obj.tid == bookinger[i].datoStart[3]){
+                    console.log(obj)
+                    obj.tid = "Optaget";
+                  } 
+                })
+            }
+        }
+    }
+  }
+  return newWeek;
+}
+
 
 //getRequest
 app.get('/', async (request, response) => {
   let årstal = new Date().getFullYear();
-  let weekNumber = Math.ceil(Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 1)) /(24 * 60 * 60 * 1000))/7);
+  let weekNumber = Math.ceil(Math.floor((new Date() - new Date(årstal, 0, 1)) /(24 * 60 * 60 * 1000))/7);
   let week = request.session.week;
   if (week == null) {
       week = 0;
   }
   weekNumber += Number(week);
   if (weekNumber > 52){
-    årstal ++;
+    årstal++;
   }
-
-  response.render('kalender', {list : liste, dage : createWeek(weekNumber, årstal), weekNumber : weekNumber, årstal : årstal});
+  
+  let dage = await putBookinger(weekNumber, årstal)
+  response.render('kalender', {list : liste, dage : dage, weekNumber : weekNumber, årstal : årstal});
 })
 
 // Eksempel på at hente fra database med pug
@@ -152,7 +175,6 @@ app.post('/shiftWeeks', (request, response) => {
       week = 0;
   }
   week += Number(value);
-  console.log(week);
   request.session.week = week
   response.status(201).send(['købt']);
 })
@@ -171,14 +193,14 @@ async function getTider(){                                //viser alle bookede t
   
   tidsListe = tidsListe.map(({datoStart, datoSlut}) => ({datoStart, datoSlut}));
 
-  return JSON.stringify(tidsListe);
+  return tidsListe;
 }
 
 //HUSK ' ' 
 // console.log(getAllDocInCollection('Booking2023'));
-console.log(await getTider());
+console.table(await getTider());
 
-console.log(await getTider())
+console.table(await getTider())
 
 
 
@@ -233,7 +255,7 @@ async function ombookTid(bookingNr, mail, kundeNavn, telefonnummer, type, datoSt
   aflysTid(bookingNr, mail);
 }
 
-ombookTid(6460725, "John@gmail.com", "John", "12345678", "Bryllup", [15,12,2022,1300], [15,12,2022,1200], "Aarhus C" )
+//ombookTid(6460725, "John@gmail.com", "John", "12345678", "Bryllup", [15,12,2022,1300], [15,12,2022,1200], "Aarhus C" )
 
 //Koden viser priserne i en liste - KUN FOR FAMILIE OG PAR
 async function chooseProductsFamilieOgPar(){
