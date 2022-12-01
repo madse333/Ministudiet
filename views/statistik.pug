@@ -8,19 +8,9 @@ html
 
     body 
 
-    center
-        div
-            label Produkttype
-            input(list = "Produkttyper")
-            datalist(id = "Produkttyper")
-                option(value = "Familieportræt")
-                option(value = "Bryllup")
-                option(value = "Pugstars!")
-                option(value="halløj") 
-
     center                  
         div
-            label Statistik for måned
+            label Statistik for måned <p>
             input(list = "Måneder")
             datalist(id = "Måneder")
                 option(value = "Januar")
@@ -36,12 +26,43 @@ html
                 option(value = "November")
                 option(value = "December")
 
+    center
+        div
+            p   
+
+    center
+        div
+            label Produkttype <p>
+            input(list = "Produkttyper")
+            datalist(id = "Produkttyper")
+                option(value = "Familieportræt")
+                option(value = "Bryllup")
+                option(value = "Pugstars!")
+                option(value="halløj") 
+
+    center
+        div
+            p   
+
  
         div
-            label Antal 
+            label Antal: 
+            Textarea antal af produkttype for valgt tid
+            //      HOW to make an output field ?? 
+            //var txtFieldAntal = item.appendChild(document.createElement('textarea'));
             //varighed = new ... get
     
-  
+    center
         div
-            label Varighed
+            p   
+  
+
+        div
+            label Samlet tidsforbrug: 
+            Textarea gennemsnitligt tidsforbrug for valgt produkttype/måned
+            //      HOW to make an output field ?? 
             //varighed = new ... get
+
+    center 
+        div 
+            img(src='./statistik' + ministudiet)        
