@@ -31,6 +31,12 @@ export const firebase_db = getFirestore(firebase_app);
 // PO ønsker at kunden kan vælge en ledig tid og booke den (ADD SKABELON)
 // Datoer består af array
 export async function bookTid(kundeNavn, mail, telefonnummer, type, datoStart, datoSlut, lokation) {
+
+    //virker ikke
+    if (telefonnummer.isInteger === false){
+            console.log("DET ER MEGA MEGET EN FEJL");
+    }
+
     let randomBookingNr = Math.floor(Math.random() * 10000000)+1;
     const q = query(collection(firebase_db, "tider"), where("bookingNr", "==", randomBookingNr));
     const querySnapshot = await getDocs(q);
@@ -52,7 +58,7 @@ export async function bookTid(kundeNavn, mail, telefonnummer, type, datoStart, d
      });
    }
    
-   //bookTid("John", "John@gmail.com", "12345678", "Par", [15, 12, 2022, 1200], [15, 12, 2022, 1300], "Viby J");
+   bookTid("Preben", "John@gmail.com", "12345678", "Par", [15, 12, 2022, 1200], [15, 12, 2022, 1300], "Viby J");
    
    //#9 PO ønsker at kunden kan aflyse egne bookinger i systemet
    export async function aflysTid(bookingNr, mail) {
