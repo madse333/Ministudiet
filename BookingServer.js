@@ -37,7 +37,7 @@ const firebaseConfig = {
   measurementId: "G-J5P8WL1TKV"
 };
 
-// testfeks
+import * as Utils from './Database.js';
 
 // app.use(sessions({ secret: 'hemmelig', saveUninitialized: true, cookie: { maxAge: 1000*60*20 }, resave: false }));
 // Initialize Firebase
@@ -174,97 +174,9 @@ async function getTider(){                                //viser alle bookede t
   return JSON.stringify(tidsListe);
 }
 
-//HUSK ' ' 
-// console.log(getAllDocInCollection('Booking2023'));
 console.log(await getTider());
 
 console.log(await getTider())
-
-
-
-//SKABELON
-async function addDokument(collectionNavn, dokumentID, data){
- await setDoc(doc(firesbase_db,collectionNavn,dokumentID), data);
-} 
-
-// let buuuuh = {navn : "John"};
-
-// PO ønsker at kunden kan vælge en ledig tid og booke den (ADD SKABELON)
-// Datoer består af array
-async function bookTid(kundeNavn, mail, telefonnummer, type, datoStart, datoSlut, lokation) {
- let randomBookingNr = Math.floor(Math.random() * 10000000)+1;
- const q = query(collection(firesbase_db, "tider"), where("bookingNr", "==", randomBookingNr));
- const querySnapshot = await getDocs(q);
- console.log(querySnapshot.size);
-
- if (querySnapshot.size > 0){
-  randomBookingNr = Math.floor(Math.random() * 10000000)+1
-}
-
-  const docRef = await addDoc(collection(firesbase_db, "tider" ), {
-    kundeNavn: kundeNavn,
-    mail: mail,
-    telefonnummer: telefonnummer,
-    type: type,
-    datoStart : datoStart,
-    datoSlut : datoSlut,
-    lokation : lokation,
-    bookingNr : randomBookingNr
-  });
-}
-
-//bookTid("John", "John@gmail.com", "12345678", "Par", [15, 12, 2022, 1200], [15, 12, 2022, 1300], "Viby J");
-
-// #9 PO ønsker at kunden kan aflyse egne bookinger i systemet
-async function aflysTid(bookingNr, mail) {
-  const q = query(collection(firesbase_db, "tider"), where("bookingNr", "==", bookingNr), where("mail", "==", mail));
-  const querySnapshot = await getDocs(q);
-
-  let booking = querySnapshot.docs[0].id;
-  
-  await deleteDoc(doc(firesbase_db, "tider", booking)); 
-}
-
-//aflysTid(6831746, "John@gmail.com")
-
-// #5 PO ønsker at kunden selv kan ombooke en fotografering
-async function ombookTid(bookingNr, mail, kundeNavn, telefonnummer, type, datoStart, datoSlut, lokation) {
-  bookTid(kundeNavn, mail, telefonnummer, type, datoStart, datoSlut, lokation)
-  aflysTid(bookingNr, mail);
-}
-
-ombookTid(6460725, "John@gmail.com", "John", "12345678", "Bryllup", [15,12,2022,1300], [15,12,2022,1200], "Aarhus C" )
-
-//Koden viser priserne i en liste - KUN FOR FAMILIE OG PAR
-async function chooseProductsFamilieOgPar(){
-  let productCol = collection(firesbase_db, 'FamilieOgPar')
-  let getProducts = await getDocs(productCol);
-
-  let productList = getProducts.docs.map(doc => {
-    let data = doc.data();
-    data.docId = doc.id;
-    return data.pris;
-  })
-  return JSON.stringify(productList);
-}
-console.log(await chooseProductsFamilieOgPar());
-
-//Viser prisen for bryllupper
-async function chooseProductsBryllupper(){
-  let productCol = collection(firesbase_db, 'Bryllupper')
-  let getProducts = await getDocs(productCol);
-
-  let productList = getProducts.docs.map(doc => {
-    let data = doc.data();
-    data.docId = doc.id;
-    return data.pris;
-  })
-  return JSON.stringify(productList);
-}
-console.log(await chooseProductsBryllupper());
-
-
-//putRequest5
 
 //deleteRequest
 app.delete('/', (request, response) => {
