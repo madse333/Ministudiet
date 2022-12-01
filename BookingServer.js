@@ -180,7 +180,6 @@ app.post('/shiftWeeks', (request, response) => {
 })
 
 
-
 //deleteRequest
 app.delete('/', (request, response) => {
   deleteXX(request.params.XX);
