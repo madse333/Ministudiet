@@ -180,26 +180,6 @@ app.post('/shiftWeeks', (request, response) => {
 })
 
 
-/*Antaget at oprettelse af en booking tilføjer den nye booking til DB-collection tider (funktionen henter data herfra)*/
-async function getTider(){                                //viser alle bookede tider
-  let tidsCol = collection(firesbase_db, 'tider')
-  let tider = await getDocs(tidsCol);
-
-  let tidsListe = tider.docs.map(doc =>{
-      let data = doc.data();
-      data.docId = doc.id;
-      return data;
-  })
-  
-  tidsListe = tidsListe.map(({datoStart, datoSlut}) => ({datoStart, datoSlut}));
-
-  return JSON.stringify(tidsListe);
-}
-
-console.log(await getTider());
-
-console.log(await getTider())
-
 //deleteRequest
 app.delete('/', (request, response) => {
   deleteXX(request.params.XX);
