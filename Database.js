@@ -25,7 +25,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const firebase_app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
-const firesbase_db = getFirestore(firebase_app);
+export const firesbase_db = getFirestore(firebase_app);
 
 
 // PO ønsker at kunden kan vælge en ledig tid og booke den (ADD SKABELON)
@@ -55,19 +55,19 @@ export async function bookTid(kundeNavn, mail, telefonnummer, type, datoStart, d
    //bookTid("John", "John@gmail.com", "12345678", "Par", [15, 12, 2022, 1200], [15, 12, 2022, 1300], "Viby J");
    
    //#9 PO ønsker at kunden kan aflyse egne bookinger i systemet
-//    async function aflysTid(bookingNr, mail) {
-//      const q = query(collection(firesbase_db, "tider"), where("bookingNr", "==", bookingNr), where("mail", "==", mail));
-//      const querySnapshot = await getDocs(q);
+   export async function aflysTid(bookingNr, mail) {
+     const q = query(collection(firesbase_db, "tider"), where("bookingNr", "==", bookingNr), where("mail", "==", mail));
+     const querySnapshot = await getDocs(q);
    
-//      let booking = querySnapshot.docs[0].id;
+     let booking = querySnapshot.docs[0].id;
      
-//      await deleteDoc(doc(firesbase_db, "tider", booking)); 
-//    }
+     await deleteDoc(doc(firesbase_db, "tider", booking)); 
+   }
    
    //aflysTid(6831746, "John@gmail.com")
    
    // #5 PO ønsker at kunden selv kan ombooke en fotografering
-   async function ombookTid(bookingNr, mail, kundeNavn, telefonnummer, type, datoStart, datoSlut, lokation) {
+   export async function ombookTid(bookingNr, mail, kundeNavn, telefonnummer, type, datoStart, datoSlut, lokation) {
      bookTid(kundeNavn, mail, telefonnummer, type, datoStart, datoSlut, lokation)
      aflysTid(bookingNr, mail);
    }
@@ -75,7 +75,7 @@ export async function bookTid(kundeNavn, mail, telefonnummer, type, datoStart, d
    //ombookTid(6460725, "John@gmail.com", "John", "12345678", "Bryllup", [15,12,2022,1300], [15,12,2022,1200], "Aarhus C" )
    
    //Koden viser priserne i en liste - KUN FOR FAMILIE OG PAR
-   async function chooseProductsFamilieOgPar(){
+   export async function chooseProductsFamilieOgPar(){
      let productCol = collection(firesbase_db, 'FamilieOgPar')
      let getProducts = await getDocs(productCol);
    
@@ -86,10 +86,10 @@ export async function bookTid(kundeNavn, mail, telefonnummer, type, datoStart, d
      })
      return JSON.stringify(productList);
    }
-   console.log(await chooseProductsFamilieOgPar());
+   //console.log(await chooseProductsFamilieOgPar());
    
    //Viser prisen for bryllupper
-   async function chooseProductsBryllupper(){
+   export async function chooseProductsBryllupper(){
      let productCol = collection(firesbase_db, 'Bryllupper')
      let getProducts = await getDocs(productCol);
    
@@ -100,5 +100,22 @@ export async function bookTid(kundeNavn, mail, telefonnummer, type, datoStart, d
      })
      return JSON.stringify(productList);
    }
-   console.log(await chooseProductsBryllupper());
+   //console.log(await chooseProductsBryllupper());
+
+
+   /*Antaget at oprettelse af en booking tilføjer den nye booking til DB-collection tider (funktionen henter data herfra)*/
+export async function getTider(){                                //viser alle bookede tider
+    let tidsCol = collection(firesbase_db, 'tider')
+    let tider = await getDocs(tidsCol);
+  
+    let tidsListe = tider.docs.map(doc =>{
+        let data = doc.data();
+        data.docId = doc.id;
+        return data;
+    })
+    
+    tidsListe = tidsListe.map(({datoStart, datoSlut}) => ({datoStart, datoSlut}));
+  
+    return JSON.stringify(tidsListe);
+  }
    
