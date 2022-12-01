@@ -199,6 +199,6 @@ app.delete('/', (request, response) => {
   response.send("Deleted");
 });
 
-console.log(Utils.getTider())
+//console.log(Utils.getTider())
 
 app.listen(8888, () => console.log('Lytter nu på port 8888'));
