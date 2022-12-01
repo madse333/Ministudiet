@@ -160,6 +160,7 @@ app.get('/index', async (request, response) => {
 })
 
 app.get('/information', async (request, response) => {
+  
   response.render('information', {list : liste});
 })
 
@@ -176,8 +177,19 @@ app.post('/shiftWeeks', (request, response) => {
   }
   week += Number(value);
   request.session.week = week
-  response.status(201).send(['købt']);
+  response.status(201).send(['Uge skiftet']);
 })
+
+app.post('/bookTid', (request, response) => {
+  const {dag} = request.body;
+  console.log(dag);
+  let booking = request.session.booking;
+    booking = dag;
+
+    request.session.booking = booking;
+    response.status(201).send(['booking markeret']);
+})
+
 
 
 //deleteRequest
