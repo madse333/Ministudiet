@@ -29,6 +29,16 @@ html
                 }
             }
 
+            let bookClickFunction = async (dag) => { 
+                try {
+                    await post("http://localhost:8888/bookTid", {dag : dag});
+                    window.location.href = "http://localhost:8888/information";
+                }
+                catch (e) {
+                    console.log("Fejl");
+                }
+            }
+
         title Kalender 
     body
 
@@ -74,5 +84,7 @@ html
                 each dag in dage
                     each ledigTid in dag.tider
                         div(class="grid-item")
-                            b #{ledigTid.tid}
-            
+                            if ledigTid.tid != "Optaget"
+                                button(onclick=onclick='bookClickFunction("'+dag.dato+ '/' +årstal+'/'+ledigTid.tid + '")') #{ledigTid.tid}
+                            else 
+                                b #{ledigTid.tid}
