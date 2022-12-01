@@ -116,6 +116,5 @@ export async function getTider(){                                //viser alle bo
     
     tidsListe = tidsListe.map(({datoStart, datoSlut}) => ({datoStart, datoSlut}));
   
-    return JSON.stringify(tidsListe);
   }
    
