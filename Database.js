@@ -30,7 +30,7 @@ export const firebase_db = getFirestore(firebase_app);
 
 // PO ønsker at kunden kan vælge en ledig tid og booke den (ADD SKABELON)
 // Datoer består af array
-export async function bookTid(kundeNavn, mail, telefonnummer, type, datoStart, datoSlut, lokation) {
+export async function bookTid(kundeNavn, mail, telefonnummer, type, datoStart, datoSlut, lokation, tidMinutter) {
     let randomBookingNr = Math.floor(Math.random() * 10000000)+1;
     const q = query(collection(firebase_db, "tider"), where("bookingNr", "==", randomBookingNr));
     const querySnapshot = await getDocs(q);
@@ -48,7 +48,8 @@ export async function bookTid(kundeNavn, mail, telefonnummer, type, datoStart, d
        datoStart : datoStart,
        datoSlut : datoSlut,
        lokation : lokation,
-       bookingNr : randomBookingNr
+       bookingNr : randomBookingNr,
+       tidMinutter : tidMinutter
      });
    }
    
@@ -67,8 +68,8 @@ export async function bookTid(kundeNavn, mail, telefonnummer, type, datoStart, d
    //aflysTid(6831746, "John@gmail.com")
    
    // #5 PO ønsker at kunden selv kan ombooke en fotografering
-   export async function ombookTid(bookingNr, mail, kundeNavn, telefonnummer, type, datoStart, datoSlut, lokation) {
-     bookTid(kundeNavn, mail, telefonnummer, type, datoStart, datoSlut, lokation)
+   export async function ombookTid(bookingNr, mail, kundeNavn, telefonnummer, type, datoStart, datoSlut, lokation, tidMinutter) {
+     bookTid(kundeNavn, mail, telefonnummer, type, datoStart, datoSlut, lokation, tidMinutter)
      aflysTid(bookingNr, mail);
    }
    
@@ -116,6 +117,7 @@ export async function getTider(){                                //viser alle bo
     
     tidsListe = tidsListe.map(({datoStart, datoSlut}) => ({datoStart, datoSlut}));
   
+    //return JSON.stringify(tidsListe);
     return tidsListe;
   }
    
