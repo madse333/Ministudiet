@@ -40,7 +40,6 @@ export async function bookTid(kundeNavn, mail, telefonnummer, type, datoStart, d
     let randomBookingNr = Math.floor(Math.random() * 10000000)+1;
     const q = query(collection(firebase_db, "tider"), where("bookingNr", "==", randomBookingNr));
     const querySnapshot = await getDocs(q);
-    console.log(querySnapshot.size);
    
     if (querySnapshot.size > 0){
      randomBookingNr = Math.floor(Math.random() * 10000000)+1

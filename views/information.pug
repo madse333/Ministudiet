@@ -20,9 +20,12 @@ html
 
             let betalingClickFunction = async () => { 
                 try {
-                    let inputs = document.querySelectorAll("input");
-                    information = inputs[0].value;
-                    await post("http://localhost:8080/bookInformation", {information : information});
+                    let navn = document.getElementById("navn").value
+                    let efternavn = document.getElementById("efternavn").value
+                    let mail = document.getElementById("mail").value
+                    let tlfnr = document.getElementById("tlf").value
+                    let ønsker = document.getElementById("ønsker").value
+                    await post("http://localhost:8080/bookInformation", {navn : navn, efternavn : efternavn, mail : mail, tlfnr : tlfnr, ønsker : ønsker}); 
                     window.location.href = "http://localhost:8080/";
                 }
                 catch (e) {
@@ -39,22 +42,22 @@ html
                     td   
                         b  Fornavn: 
                     td 
-                        input(id="input" type="text" placeholder="Fornavn" value="Mads")
+                        input(id="navn" type="text" placeholder="Fornavn" value="Mads")
                 tr 
                     td 
                         b Efternavn: 
                     td 
-                        input(type="text" placeholder="Efternavn" value="Nørskov")
+                        input(id="efternavn" type="text" placeholder="Efternavn" value="Nørskov")
                 tr 
                     td 
                         b Mail: 
                     td 
-                        input(type="text" placeholder="Mail" value="madsen170@yahoo.dk")
+                        input(id="mail" type="text" placeholder="Mail" value="madsen170@yahoo.dk")
                 tr
                     td  
                         b Telefonnummer: 
                     td 
-                        input(type="text" placeholder="88888888" value="31393910")
+                        input(id="tlf" type="text" placeholder="88888888" value="31393910")
 
         div  
             b Betalingsform 
@@ -69,7 +72,7 @@ html
         div 
             b Ønsker til lokation eller andre ønsker
         div 
-            textarea(name="tfxOensker", cols="30", rows="10", placeholder="Jeg kunne godt tænke mig...")
+            textarea(id="ønsker" name="tfxOensker", cols="30", rows="10", placeholder="Jeg kunne godt tænke mig...")
         div 
             button(id="Betaling" onclick='betalingClickFunction()') Til betaling ->
 

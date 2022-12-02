@@ -4,6 +4,7 @@ import sessions from 'express-session';
 
 import path from 'path';
 import { fileURLToPath } from "url";
+import bodyParser from 'body-parser';
 
 const _filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(_filename);
@@ -15,6 +16,8 @@ app.use(sessions({ secret: 'hemmelig', saveUninitialized: true, cookie: { maxAge
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(bodyParser.urlencoded({extended: true}));
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
@@ -185,20 +188,28 @@ app.post('/shiftWeeks', (request, response) => {
 })
 
 app.post('/bookTid', (request, response) => {
-  const {dag} = request.body;
+  const dag = request.body.dag;
+  const type = request.body.type;
+  let bookingType = request.session.type;
+  bookingType = type;
   let booking = request.session.booking;
   booking = dag;
-  console.log(booking);
 
+  request.session.type = bookingType;
   request.session.booking = booking;
   response.status(201).send(['booking markeret']);
 })
 
 app.post('/bookInformation', (request, response) => {
-  const {value} = request.body;
-  let information = request.session.information;
-  console.log(information);
+  let navn = request.body.navn;
+  let efternavn = request.body.efternavn;
+  let mail = request.body.mail;
+  let tlfnr = request.body.tlfnr;
+  let dato = request.session.booking.split("/");
+  let type = request.session.type;
+  let ønsker = request.body.ønsker;
 
+  Utils.bookTid(navn + " " + efternavn, mail, tlfnr, type, [dato[0], dato[1], dato[2], dato[3]], null, ønsker, 100);
   response.status(201).send(['Information indtastet']);
 })
 
@@ -213,4 +224,4 @@ app.delete('/', (request, response) => {
 
 //console.log(Utils.getTider())
 
-app.listen(8888, () => console.log('Lytter nu på port 8888'));
+app.listen(8080, () => console.log('Lytter nu på port 8080'));

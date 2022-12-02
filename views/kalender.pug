@@ -30,7 +30,8 @@ html
 
             let bookClickFunction = async (dag) => { 
                 try {
-                    await post("http://localhost:8080/bookTid", {dag : dag});
+                    let type = document.getElementById("type").value
+                    await post("http://localhost:8080/bookTid", {dag : dag, type : type});
                     window.location.href = "http://localhost:8080/information";
                 }
                 catch (e) {
@@ -42,7 +43,7 @@ html
     body
         div
             label Vælg produkt 
-            input(list = "Produkttyper")
+            input(id="type" list = "Produkttyper")
             datalist(id = "Produkttyper")
                 option(value = "Familieportræt")
                 option(value = "Bryllup")
