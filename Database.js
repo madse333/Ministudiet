@@ -19,8 +19,6 @@ const firebaseConfig = {
   measurementId: "G-J5P8WL1TKV"
 };
 
-// testfeks
-
 // app.use(sessions({ secret: 'hemmelig', saveUninitialized: true, cookie: { maxAge: 1000*60*20 }, resave: false }));
 // Initialize Firebase
 const firebase_app = initializeApp(firebaseConfig);

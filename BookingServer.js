@@ -159,11 +159,6 @@ app.get('/', async (request, response) => {
   response.render('kalender', {list : liste, dage : dage, weekNumber : weekNumber, årstal : årstal});
 })
 
-// Eksempel på at hente fra database med pug
-app.get('/index', async (request, response) => {
-  const besked = await getBeskeder();
-  response.render('index', { beskeder: besked })
-})
 
 app.get('/information', async (request, response) => {
   let bookingdato = request.session.booking;
@@ -222,7 +217,8 @@ app.delete('/', (request, response) => {
   response.send("Deleted");
 });
 
-//console.log(Utils.getTider())
+console.log(Utils2.getTider())
 //Utils.bookTid("Kresten", "John@gmail.com", 12345678, "Par", [15, 12, 2022, 1200], [15, 12, 2022, 1300], "Viby J", 60);
+
 
 app.listen(8080, () => console.log('Lytter nu på port 8080'));
