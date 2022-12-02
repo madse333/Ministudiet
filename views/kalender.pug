@@ -1,5 +1,4 @@
 html
-
     head
         style 
             include ./kalender.css
@@ -21,8 +20,8 @@ html
  
             let clickfunction = async (value) => { 
                 try {
-                    await post("http://localhost:8888/shiftWeeks", {value : value});
-                    window.location.href = "http://localhost:8888/";
+                    await post("http://localhost:8080/shiftWeeks", {value : value});
+                    window.location.href = "http://localhost:8080/";
                 }
                 catch (e) {
                     console.log("Fejl");
@@ -31,8 +30,8 @@ html
 
             let bookClickFunction = async (dag) => { 
                 try {
-                    await post("http://localhost:8888/bookTid", {dag : dag});
-                    window.location.href = "http://localhost:8888/information";
+                    await post("http://localhost:8080/bookTid", {dag : dag});
+                    window.location.href = "http://localhost:8080/information";
                 }
                 catch (e) {
                     console.log("Fejl");
@@ -41,7 +40,6 @@ html
 
         title Kalender 
     body
-
         div
             label Vælg produkt 
             input(list = "Produkttyper")
@@ -85,6 +83,7 @@ html
                     each ledigTid in dag.tider
                         div(class="grid-item")
                             if ledigTid.tid != "Optaget"
-                                button(onclick=onclick='bookClickFunction("'+dag.dato+ '/' +årstal+'/'+ledigTid.tid + '")') #{ledigTid.tid}
+                                button(onclick='bookClickFunction("'+dag.dato+ '/' +årstal+'/'+ledigTid.tid + '")') #{ledigTid.tid}
                             else 
                                 b #{ledigTid.tid}
+        
