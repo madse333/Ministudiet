@@ -31,13 +31,10 @@ export const firebase_db = getFirestore(firebase_app);
 // PO ønsker at kunden kan vælge en ledig tid og booke den (ADD SKABELON)
 // Datoer består af array
 export async function bookTid(kundeNavn, mail, telefonnummer, type, datoStart, datoSlut, lokation, tidMin) {
-/*
-    //virker ikke
-    if (telefonnummer.isInteger === false){
-            console.log("DET ER MEGA MEGET EN FEJL");
-    }*/
-
-    let randomBookingNr = Math.floor(Math.random() * 10000000)+1;
+    if (typeof telefonnummer != "number" && typeof kundeNavn != "string" && typeof type != "string" && typeof lokation != "string" && typeof tidMin != "number"){
+            console.log("Forkert input");
+    } else {
+      let randomBookingNr = Math.floor(Math.random() * 10000000)+1;
     const q = query(collection(firebase_db, "tider"), where("bookingNr", "==", randomBookingNr));
     const querySnapshot = await getDocs(q);
    
@@ -56,25 +53,30 @@ export async function bookTid(kundeNavn, mail, telefonnummer, type, datoStart, d
        bookingNr : randomBookingNr,
        tidMin : tidMin
      });
+    }
    }
    
-   bookTid("Preben", "John@gmail.com", "12345678", "Par", [15, 12, 2022, 1200], [15, 12, 2022, 1300], "Viby J", 60);
+   //bookTid("Preben", "John@gmail.com", "12345678", "Par", [15, 12, 2022, 1200], [15, 12, 2022, 1300], "Viby J", 60);
    
    //#9 PO ønsker at kunden kan aflyse egne bookinger i systemet
    export async function aflysTid(bookingNr, mail) {
-     const q = query(collection(firebase_db, "tider"), where("bookingNr", "==", bookingNr), where("mail", "==", mail));
-     const querySnapshot = await getDocs(q);
-   
-     let booking = querySnapshot.docs[0].id;
-     
-     await deleteDoc(doc(firebase_db, "tider", booking)); 
+    if (typeof bookingNr != "number"){
+        console.log("Forkert input");
+    } else {
+      const q = query(collection(firebase_db, "tider"), where("bookingNr", "==", bookingNr), where("mail", "==", mail));
+      const querySnapshot = await getDocs(q);
+    
+      let booking = querySnapshot.docs[0].id;
+      
+      await deleteDoc(doc(firebase_db, "tider", booking)); 
+    }
    }
    
    //aflysTid(6831746, "John@gmail.com")
    
    // #5 PO ønsker at kunden selv kan ombooke en fotografering
-   export async function ombookTid(bookingNr, mail, kundeNavn, telefonnummer, type, datoStart, datoSlut, lokation, tidMin) {
-     bookTid(kundeNavn, mail, telefonnummer, type, datoStart, datoSlut, lokation, tidMin)
+   export async function ombookTid(bookingNr, mail, kundeNavn, telefonnummer, type, datoStart, datoSlut, lokation, tidMin) { 
+    bookTid(kundeNavn, mail, telefonnummer, type, datoStart, datoSlut, lokation, tidMin)
      aflysTid(bookingNr, mail);
    }
    
