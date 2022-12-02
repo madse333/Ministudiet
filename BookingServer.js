@@ -163,8 +163,9 @@ app.get('/index', async (request, response) => {
 })
 
 app.get('/information', async (request, response) => {
+  let bookingdato = request.session.booking;
   
-  response.render('information', {list : liste});
+  response.render('information', {bookingDato : bookingdato});
 })
 
 // Eksempel på at hente fra database med pug
@@ -185,12 +186,20 @@ app.post('/shiftWeeks', (request, response) => {
 
 app.post('/bookTid', (request, response) => {
   const {dag} = request.body;
-  console.log(dag);
   let booking = request.session.booking;
-    booking = dag;
+  booking = dag;
+  console.log(booking);
 
-    request.session.booking = booking;
-    response.status(201).send(['booking markeret']);
+  request.session.booking = booking;
+  response.status(201).send(['booking markeret']);
+})
+
+app.post('/bookInformation', (request, response) => {
+  const {value} = request.body;
+  let information = request.session.information;
+  console.log(information);
+
+  response.status(201).send(['Information indtastet']);
 })
 
 
