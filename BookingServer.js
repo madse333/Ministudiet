@@ -28,7 +28,7 @@ import { stringify } from 'querystring';
 import { exit } from 'process';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-app.
+
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyC7nHsiYRk1s3UqZsBZu_CwAu1iL936_18",
