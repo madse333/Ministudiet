@@ -42,28 +42,34 @@ html
 
     center
         div
-            p   
+            br
 
  
         div
             label Antal: 
-            Textarea antal af produkttype for valgt tid
-            //      HOW to make an output field ?? 
-            //var txtFieldAntal = item.appendChild(document.createElement('textarea'));
-            //varighed = new ... get
-    
+                input(type="text" name="title" placeholder="Antal af produkttypen")
+                // How? GUI: Beholde input-feltet
+                // Lav en getAntal-metode der looper igennem hhv. dage i valgt måned + bookingerness produkttyper (gem i var-array)
+                // ^ Metode kaldes når begge feltet er udfyldt via drop down
+            
     center
         div
-            p   
-  
+            br   
+
+    center
+        div
+            br   
 
         div
             label Samlet tidsforbrug: 
-            Textarea gennemsnitligt tidsforbrug for valgt produkttype/måned
-            //      HOW to make an output field ?? 
-            //varighed = new ... get
+                input(type="text" name="title" placeholder="Samlet tidsforbrug")
+                // How? GUI: Beholde input-feltet
+                // Lav en getSamletTid-metode der looper igennem var-array(lavet i metoden^) og summerer objekt.tidMin og gemmer det i en var.
+                // ^ Metode kaldes når begge feltet er udfyldt via drop down    
+                // ^ OBS vigtigt getAntal kaldes før getSamletTid
 
-    center 
-        div 
-            //img(src='./statistik' + ministudiet)        
-            img(src='./statistik' style='width:1000px; height:300px;')
+    //- center 
+    //-     div 
+    //-         img(src='./statistik' + ministudiet)        
+    //-             //img(src='./statistik' style='width:1000px; height:300px;'+ ministudiet.jpeg)
+            

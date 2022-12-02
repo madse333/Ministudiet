@@ -38,6 +38,9 @@ const firebaseConfig = {
 };
 
 import * as Utils from './Database.js';
+import * as Utils2 from './views/statistik.js';
+  // For at kalde getAntal fra statistik.js: console.log(getAntal);
+  // For at kalde getAntal fra BookingServer.js: console.log(Utils2.getAntal);
 
 // app.use(sessions({ secret: 'hemmelig', saveUninitialized: true, cookie: { maxAge: 1000*60*20 }, resave: false }));
 // Initialize Firebase
@@ -208,4 +211,6 @@ app.delete('/', (request, response) => {
   response.send("Deleted");
 });
 
-app.listen(8080, () => console.log('Lytter nu på port 8080'));
+//console.log(Utils.getTider())
+
+app.listen(8888, () => console.log('Lytter nu på port 8888'));
