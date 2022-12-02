@@ -203,5 +203,6 @@ app.delete('/', (request, response) => {
 });
 
 //console.log(Utils.getTider())
+Utils.bookTid("Kresten", "John@gmail.com", 12345678, "Par", [15, 12, 2022, 1200], [15, 12, 2022, 1300], "Viby J", 60);
 
-app.listen(8888, () => console.log('Lytter nu på port 8888'));
+app.listen(8200, () => console.log('Lytter nu på port 8888'));
