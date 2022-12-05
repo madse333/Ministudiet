@@ -56,7 +56,7 @@ export async function getAntal(måned, produkttype) {
 
     querySnapshot.forEach((doc) => {
             let month = doc.data().datoStart[1];
-            if (month = måned && produkttype == doc.get('type')){
+            if (month == måned && produkttype == doc.get('type')){
          count++;
         }      
     })
@@ -68,24 +68,17 @@ export async function getAntal(måned, produkttype) {
 
 export async function getSamletTid(måned, produkttype) {		
     let tidCount = 0;	
+
     const q = query(collection(firebase_db, "tider"));
     const querySnapshot = await getDocs(q);
+
     querySnapshot.forEach((doc) => {
-        //if (måned == doc.datoStart[1] && produkttype == doc.type){
-            //if (måned == doc.datoStart[1]){
-                if (produkttype == doc.type){
-            console.log("før if")
-            if (produkttype == doc.type){
-         let tidsforbrug = doc.tidMin;   
-         tidCount += tidsforbrug;
-         console.log("test");
-         console.log(tidCount);
-        }      
+        let month = doc.data().datoStart[1];
+        if (month == måned && produkttype == doc.get('type')){
+            console.log(tidsforbrug);
+            tidCount += tidsforbrug;
     }})
-    console.log("test");
-    console.log(tidCount);
-    return tidCount; 
-    //return stringify(tidCount);    
+    return tidCount;    
 }
 console.log("Samlet tid " + await getSamletTid(12, "Par"));
 console.log("Antal tider: " + await getAntal(12, "Par"));
