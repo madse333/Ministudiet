@@ -76,11 +76,11 @@ export async function getSamletTid(måned, produkttype) {
             if (produkttype == doc.type){
          let tidsforbrug = doc.tidMin;   
          tidCount += tidsforbrug;
-         console.log("tesat");
+         console.log("test");
          console.log(tidCount);
         }      
     }})
-    console.log("tesat");
+    console.log("test");
     console.log(tidCount);
     return tidCount; 
     //return stringify(tidCount);    
