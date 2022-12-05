@@ -217,7 +217,7 @@ app.delete('/', (request, response) => {
   response.send("Deleted");
 });
 
-console.log(Utils2.getTider())
+//console.log(Utils.getTider())
 //Utils.bookTid("Kresten", "John@gmail.com", 12345678, "Par", [15, 12, 2022, 1200], [15, 12, 2022, 1300], "Viby J", 60);
 
 
