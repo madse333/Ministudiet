@@ -51,6 +51,8 @@ export async function bookTid(kundeNavn, mail, telefonnummer, type, datoStart, d
        bookingNr : randomBookingNr,
        tidMin : tidMin
      });
+
+     console.log(docRef);
     }
    }
    
