@@ -85,10 +85,12 @@ class Tid {
  let tid5 = new Tid("1200");
  let tid6 = new Tid("1300");
  let tid7 = new Tid("1400");
- let tid8 = new Tid("1600");
- let tid9 = new Tid("1800");
+ let tid8 = new Tid("1500");
+ let tid9 = new Tid("1600");
+ let tid10 = new Tid("1700");
+ let tid11 = new Tid("1800");
 
-const liste = [tid1, tid2, tid3, tid4, tid5, tid6, tid7, tid8, tid9];
+const liste = [tid1, tid2, tid3, tid4, tid5, tid6, tid7, tid8, tid9, tid10, tid11];
 
 // let fremButton = document.querySelector('Button');
 // fremButton.addEventListener("click", skiftUge);
@@ -187,6 +189,7 @@ app.post('/bookTid', (request, response) => {
   const type = request.body.type;
   let bookingType = request.session.type;
   bookingType = type;
+  console.log(type);
   let booking = request.session.booking;
   booking = dag;
 
@@ -217,7 +220,7 @@ app.delete('/', (request, response) => {
   response.send("Deleted");
 });
 
-console.log(Utils2.getTider())
+//console.log(Utils2.getTider())
 //Utils.bookTid("Kresten", "John@gmail.com", 12345678, "Par", [15, 12, 2022, 1200], [15, 12, 2022, 1300], "Viby J", 60);
 
 

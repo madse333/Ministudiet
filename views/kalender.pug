@@ -28,11 +28,17 @@ html
                 }
             }
 
-            let bookClickFunction = async (dag) => { 
+            let bookClickFunction = async (dag) => {
                 try {
-                    let type = document.getElementById("type").value
-                    await post("http://localhost:8080/bookTid", {dag : dag, type : type});
-                    window.location.href = "http://localhost:8080/information";
+                    let type = document.getElementById("type").value;
+                    if (type != ""){
+                        await post("http://localhost:8080/bookTid", {dag : dag, type : type});
+                        window.location.href = "http://localhost:8080/information";
+                    }
+                    else{
+                        alert("Produkttype er ikke valgt!");
+                        document.getElementById("type").style.borderColor = "#f27070";
+                    }
                 }
                 catch (e) {
                     console.log("Fejl");
@@ -41,21 +47,14 @@ html
 
         title Kalender 
     body
-        div
-            label Vælg produkt 
-            input(id="type" list = "Produkttyper")
-            datalist(id = "Produkttyper")
-                option(value = "Familieportræt")
-                option(value = "Bryllup")
-    
         center 
             div
                 table
-                    tr 
+                    tr(class="grid-containerHori")
                         td 
-                            label(id = "Årstal") #{årstal}
+                            p(class="År") #{årstal}
                         td 
-                            button(id = "Tilbage" onclick='clickfunction("' + (-1) + '")') <- tilbage
+                            button(id = "Tilbage" onclick='clickfunction("' + (-1) + '")') Tilbage
                         td 
                             label(id ="Uge")
                                 if weekNumber > 52
@@ -63,13 +62,18 @@ html
                                 else 
                                     p Uge #{weekNumber}
                         td 
-                            button(id = "Frem" onclick='clickfunction("' + 1 + '")') Frem ->
+                            button(id = "Frem" onclick='clickfunction("' + 1 + '")') Frem
+                        td(class="ProduktType") 
+                            label(for="type") Produkttype: 
+                            select(name="produkter" id="type") 
+                                option(value = "")
+                                option(value = "Familieportræt") Familieportræt
+                                option(value = "Bryllup") Bryllup
         
 
         center 
             div(class="grid-containerHori")
-                div(class="grid-item-tid")
-                    b Tider
+                b(class="Tider") Tider
                 each dag in dage
                     div(class="grid-item")
                         b #{dag.navn}
@@ -78,12 +82,12 @@ html
             div(class="grid-containerVert")  
                 each tid in list 
                     div(class="grid-item-tid")
-                        b #{tid.tid}
+                        b(class="Tider") #{tid.tid}
                 each dag in dage
                     each ledigTid in dag.tider
                         div(class="grid-item")
                             if ledigTid.tid != "Optaget"
                                 button(onclick='bookClickFunction("'+dag.dato+ '/' +årstal+'/'+ledigTid.tid + '")') #{ledigTid.tid}
                             else 
-                                b #{ledigTid.tid}
+                                b(class="optaget") #{ledigTid.tid}
         
