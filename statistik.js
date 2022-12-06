@@ -14,40 +14,6 @@ function getCount() {
 	return count;
 }
 
-
-export async function getAntal(måned, produkttype) {	
-    let count = 0;	
-    
-    let q = query(collection(UtilsDatabase.firebase_db, "tider"));
-    let querySnapshot = await getDocs(q);
-
-    querySnapshot.forEach((doc) => {
-            let month = doc.data().datoStart[1];
-            if (month == måned && produkttype == doc.get('type')){
-         count++;
-        }      
-    })
-    return count;
-}
-
-// For at kalde getAntal fra statistik.js: console.log(getAntal);
-// For at kalde getAntal fra BookingServer.js: console.log(Utils2.getAntal);
-
-export async function getSamletTid(måned, produkttype) {		
-    let tidCount = 0;	
-
-    const q = query(collection(UtilsDatabase.firebase_db, "tider"));
-    const querySnapshot = await getDocs(q);
-
-    querySnapshot.forEach((doc) => {
-        let month = doc.data().datoStart[1];
-        if (month == måned && produkttype == doc.get('type')){
-            let tidsforbrug = doc.get('tidMin');
-            tidCount += tidsforbrug;
-    }})
-    return tidCount;    
-}
-
 export function monthToNumber(month){
     let monthNr = 12
     if(month = "januar"){
@@ -85,6 +51,6 @@ export function monthToNumber(month){
     }
      return monthNr;   
 }
-console.log("Samlet tid " + await getSamletTid(12, "Par"));
-console.log("Antal tider: " + await getAntal(12, "Par"));
+console.log("Samlet tid " + await UtilsDatabase.getSamletTid(12, "Par"));
+console.log("Antal tider: " + await UtilsDatabase.getAntal(12, "Par"));
     
