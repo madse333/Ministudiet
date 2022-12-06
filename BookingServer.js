@@ -41,7 +41,8 @@ const firebaseConfig = {
 };
 
 import * as Utils from './Database.js';
-import * as Utils2 from './views/statistik.js';
+import * as Utils2 from './statistik.js';
+//import * as Utils2 from './views/statistik.js';
   // For at kalde getAntal fra statistik.js: console.log(getAntal);
   // For at kalde getAntal fra BookingServer.js: console.log(Utils2.getAntal);
 
