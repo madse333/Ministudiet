@@ -67,8 +67,8 @@ app.get('/', async (request, response) => {
   if (weekNumber > 52){
     årstal++;
   }
-  let liste = Utils3.getTidsListe();
   let dage = await Utils3.putBookinger(weekNumber, årstal)
+  let liste = Utils3.getTidsListe();
   response.render('kalender', {list : liste, dage : dage, weekNumber : weekNumber, årstal : årstal});
 })
 

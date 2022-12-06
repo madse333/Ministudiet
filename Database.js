@@ -110,19 +110,14 @@ export async function bookTid(kundeNavn, mail, telefonnummer, type, datoStart, d
 
 
    /*Antaget at oprettelse af en booking tilføjer den nye booking til DB-collection tider (funktionen henter data herfra)*/
-export async function getTider(){                                //viser alle bookede tider
-    let tidsCol = collection(firebase_db, 'tider')
-    let tider = await getDocs(tidsCol);
+export async function getBookinger(){                                //viser alle bookede tider
+    let bookingCol = collection(firebase_db, 'tider')
+    let bookinger = await getDocs(bookingCol);
   
-    let tidsListe = tider.docs.map(doc =>{
-        let data = doc.data();
-        data.docId = doc.id;
-        return data;
+    let bookingListe = bookinger.docs.map(doc =>{
+        return doc.get('datoStart');
     })
     
-    tidsListe = tidsListe.map(({datoStart, datoSlut}) => ({datoStart, datoSlut}));
-  
-    //return JSON.stringify(tidsListe);
-    return tidsListe;
+    return bookingListe;
   }
    

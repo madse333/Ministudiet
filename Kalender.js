@@ -74,21 +74,21 @@ const liste = [tid1, tid2, tid3, tid4, tid5, tid6, tid7, tid8, tid9, tid10, tid1
   
   export async function putBookinger(weeknumber, årstal){
     let newWeek = createWeek(weeknumber, årstal);
-    let bookinger = await Utils.getTider();
-    for (let i = 0; i < bookinger.length; i++){
+    let bookinger = await Utils.getBookinger();
+    bookinger.forEach(booking => {
       for (let j = 0; j < newWeek.length; j++){
-          if (newWeek[j].årstal == bookinger[i].datoStart[2]){
+          if (newWeek[j].årstal == booking[2]){
               let dato = newWeek[j].dato.split("/");
-              if (dato[0] == bookinger[i].datoStart[0] && dato[1] == bookinger[i].datoStart[1]){
+              if (dato[0] == booking[0] && dato[1] == booking[1]){
                   newWeek[j].tider.find(obj => {
-                    if (obj.tid == bookinger[i].datoStart[3]){
+                    if (obj.tid == booking[3]){
                       console.log(obj)
                       obj.tid = "Optaget";
                     } 
                   })
               }
-          }
-      }
-    }
+            }
+        } 
+    });  
     return newWeek;
   }
