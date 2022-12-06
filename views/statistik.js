@@ -75,8 +75,8 @@ export async function getSamletTid(måned, produkttype) {
     querySnapshot.forEach((doc) => {
         let month = doc.data().datoStart[1];
         if (month == måned && produkttype == doc.get('type')){
-            // console.log(tidsforbrug);
-            // tidCount += tidsforbrug;
+            let tidsforbrug = doc.get('tidMin');
+            tidCount += tidsforbrug;
     }})
     return tidCount;    
 }
