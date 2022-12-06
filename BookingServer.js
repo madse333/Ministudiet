@@ -19,41 +19,11 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(bodyParser.urlencoded({extended: true}));
 
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import { getFirestore, collection, getDocs, updateDoc, doc, deleteDoc, addDoc, getDoc, query, where, setDoc } from 'firebase/firestore'
-import { async } from '@firebase/util';
-import { stringify } from 'querystring';
-import { exit } from 'process';
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyC7nHsiYRk1s3UqZsBZu_CwAu1iL936_18",
-  authDomain: "ministudietbooking.firebaseapp.com",
-  projectId: "ministudietbooking",
-  storageBucket: "ministudietbooking.appspot.com",
-  messagingSenderId: "759219394404",
-  appId: "1:759219394404:web:a167b94942151ad4658c71",
-  measurementId: "G-J5P8WL1TKV"
-};
 
 import * as Utils from './Database.js';
 import * as Utils2 from './statistik.js';
 import * as Utils3 from './Kalender.js';
-//import * as Utils2 from './views/statistik.js';
-  // For at kalde getAntal fra statistik.js: console.log(getAntal);
-  // For at kalde getAntal fra BookingServer.js: console.log(Utils2.getAntal);
 
-// app.use(sessions({ secret: 'hemmelig', saveUninitialized: true, cookie: { maxAge: 1000*60*20 }, resave: false }));
-// Initialize Firebase
-const firebase_app = initializeApp(firebaseConfig);
-// const analytics = getAnalytics(app);
-const firesbase_db = getFirestore(firebase_app);
-
-//endpoints
 
 //getRequest
 app.get('/', async (request, response) => {
