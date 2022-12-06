@@ -12,6 +12,8 @@
 .grid-containerHori{
     border-color: antiquewhite;
     border-collapse: collapse;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
 .produktType{
