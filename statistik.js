@@ -50,11 +50,13 @@ function getCount() {
 
 export async function getAntal(måned, produkttype) {	
     let count = 0;	
-    const q = query(collection(firebase_db, "tider"));
-    const querySnapshot = await getDocs(q);
+    
+    let q = query(collection(firebase_db, "tider"));
+    let querySnapshot = await getDocs(q);
+
     querySnapshot.forEach((doc) => {
-        //if (måned == doc.datoStart[1] && produkttype == doc.type){
-            if (produkttype == doc.type){
+            let month = doc.data().datoStart[1];
+            if (month == måned && produkttype == doc.get('type')){
          count++;
         }      
     })
@@ -66,25 +68,56 @@ export async function getAntal(måned, produkttype) {
 
 export async function getSamletTid(måned, produkttype) {		
     let tidCount = 0;	
+
     const q = query(collection(firebase_db, "tider"));
     const querySnapshot = await getDocs(q);
+
     querySnapshot.forEach((doc) => {
-        //if (måned == doc.datoStart[1] && produkttype == doc.type){
-            //if (måned == doc.datoStart[1]){
-                if (produkttype == doc.type){
-            console.log("før if")
-            if (produkttype == doc.type){
-         let tidsforbrug = doc.tidMin;   
-         tidCount += tidsforbrug;
-         console.log("tesat");
-         console.log(tidCount);
-        }      
+        let month = doc.data().datoStart[1];
+        if (month == måned && produkttype == doc.get('type')){
+            let tidsforbrug = doc.get('tidMin');
+            tidCount += tidsforbrug;
     }})
-    console.log("tesat");
-    console.log(tidCount);
-    return tidCount; 
-    //return stringify(tidCount);    
+    return tidCount;    
 }
-console.log(getSamletTid(12, "Par"));
-console.log(getAntal(12, "Par"));
+
+export function monthToNumber(month){
+    let monthNr = 12
+    if(month = "januar"){
+        monthNr = 1;
+    }
+    else if(month = "februar"){
+        monthNr = 2;
+    }
+    else if(month = "marts"){
+        monthNr = 3;
+    }
+    else if(month = "april"){
+        monthNr = 4;
+    }
+    else if(month = "maj"){
+        monthNr = 5;
+    }
+    else if(month = "juni"){
+        monthNr = 6;
+    }
+    else if(month = "juli"){
+        monthNr = 7;
+    }
+    else if(month = "august"){
+        monthNr = 8;
+    }
+    else if(month = "september"){
+        monthNr = 9;
+    }
+    else if(month = "oktober"){
+        monthNr = 10;
+    }
+    else if(month = "november"){
+        monthNr = 11;
+    }
+     return monthNr;   
+}
+console.log("Samlet tid " + await getSamletTid(12, "Par"));
+console.log("Antal tider: " + await getAntal(12, "Par"));
     

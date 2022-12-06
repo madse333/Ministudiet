@@ -41,7 +41,8 @@ const firebaseConfig = {
 };
 
 import * as Utils from './Database.js';
-import * as Utils2 from './views/statistik.js';
+import * as Utils2 from './statistik.js';
+//import * as Utils2 from './views/statistik.js';
   // For at kalde getAntal fra statistik.js: console.log(getAntal);
   // For at kalde getAntal fra BookingServer.js: console.log(Utils2.getAntal);
 
@@ -220,7 +221,7 @@ app.delete('/', (request, response) => {
   response.send("Deleted");
 });
 
-//console.log(Utils2.getTider())
+//console.log(Utils.getTider())
 //Utils.bookTid("Kresten", "John@gmail.com", 12345678, "Par", [15, 12, 2022, 1200], [15, 12, 2022, 1300], "Viby J", 60);
 
 
