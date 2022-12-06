@@ -1,19 +1,5 @@
 import * as UtilsDatabase from './Database.js';
 
-let bookingerForMd = new Array(50); 	
-let count = 0;
-
- function getbookingerForMd() {
-	return bookingerForMd;
-}
-function setbookingerForMd(bookingerForMd) {
-	this.bookingerForMd = bookingerForMd;
-}
-
-function getCount() {
-	return count;
-}
-
 export function monthToNumber(month){
     let monthNr = 12
     if(month = "januar"){
