@@ -125,4 +125,37 @@ export async function getTider(){                                //viser alle bo
     //return JSON.stringify(tidsListe);
     return tidsListe;
   }
+
+  export async function getAntal(måned, produkttype) {	
+    let count = 0;	
+    
+    let q = query(collection(firebase_db, "tider"));
+    let querySnapshot = await getDocs(q);
+
+    querySnapshot.forEach((doc) => {
+            let month = doc.data().datoStart[1];
+            if (month == måned && produkttype == doc.get('type')){
+         count++;
+        }      
+    })
+    return count;
+}
+
+// For at kalde getAntal fra statistik.js: console.log(getAntal);
+// For at kalde getAntal fra BookingServer.js: console.log(Utils2.getAntal);
+
+export async function getSamletTid(måned, produkttype) {		
+    let tidCount = 0;	
+
+    const q = query(collection(firebase_db, "tider"));
+    const querySnapshot = await getDocs(q);
+
+    querySnapshot.forEach((doc) => {
+        let month = doc.data().datoStart[1];
+        if (month == måned && produkttype == doc.get('type')){
+            let tidsforbrug = doc.get('tidMin');
+            tidCount += tidsforbrug;
+    }})
+    return tidCount;    
+}
    
