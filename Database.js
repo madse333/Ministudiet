@@ -124,8 +124,32 @@ export async function bookTid(kundeNavn, mail, telefonnummer, type, datoStart, d
     return bookingListe;
   }
 
+  export async function getAntal(måned, produkttype) {	
+    let count = 0;	
+    let bookinger = await getCollection('tider');
 
-   
-export async function getFraDb(){
-  return await getCollection('tider');
+    bookinger.forEach((doc) => {
+          let month = doc.data().datoStart[1]
+          if (month == måned && produkttype == doc.get('type')){
+        count++;
+      }      
+    })
+    return count;
 }
+
+// For at kalde getAntal fra statistik.js: console.log(getAntal);
+// For at kalde getAntal fra BookingServer.js: console.log(Utils2.getAntal);
+
+export async function getSamletTid(måned, produkttype) {		
+    let tidCount = 0;	
+    let bookinger = await getCollection('tider');
+
+    bookinger.forEach((doc) => {
+        let month = doc.data().datoStart[1]
+        if (month == måned && produkttype == doc.get('type')){
+            let tidsforbrug = doc.get('tidMin');
+            tidCount += tidsforbrug;
+    }})
+    return tidCount;    
+}
+

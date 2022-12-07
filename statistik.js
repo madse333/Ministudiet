@@ -37,6 +37,6 @@ export function monthToNumber(month){
     }
      return monthNr;   
 }
-console.log("Samlet tid " + await UtilsDatabase.getSamletTid(12, "Par"));
-console.log("Antal tider: " + await UtilsDatabase.getAntal(12, "Par"));
+console.log("Samlet tid " + await getSamletTid(12, "Par"));
+console.log("Antal tider: " + await getAntal(12, "Par"));
     
