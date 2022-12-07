@@ -37,6 +37,36 @@ export function monthToNumber(month){
     }
      return monthNr;   
 }
-console.log("Samlet tid " + await UtilsDatabase.getSamletTid(12, "Par"));
-console.log("Antal tider: " + await UtilsDatabase.getAntal(12, "Par"));
+
+
+export async function getAntal(måned, produkttype) {	
+    let count = 0;	
+    let bookinger = await UtilsDatabase.getFraDb();
+
+    bookinger.forEach((doc) => {
+          let month = doc.data().datoStart[1]
+          if (month == måned && produkttype == doc.get('type')){
+        count++;
+      }      
+    })
+    return count;
+}
+
+
+export async function getSamletTid(måned, produkttype) {		
+    let tidCount = 0;	
+    let bookinger = await UtilsDatabase.getFraDb();
+
+    bookinger.forEach((doc) => {
+        let month = doc.data().datoStart[1]
+        if (month == måned && produkttype == doc.get('type')){
+            let tidsforbrug = doc.get('tidMin');
+            tidCount += tidsforbrug;
+    }})
+    return tidCount;    
+}
+
+console.log("Samlet tid " + await getSamletTid(12, "Par"));
+console.log("Antal tider: " + await getAntal(12, "Par"));
+    
     
