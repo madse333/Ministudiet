@@ -24,17 +24,17 @@ class Dag {
         this.tid = tid;
     }
    }
-   let tid1 = new Tid("0800");
-   let tid2 = new Tid("0900");
-   let tid3 = new Tid("1000");
-   let tid4 = new Tid("1100");
-   let tid5 = new Tid("1200");
-   let tid6 = new Tid("1300");
-   let tid7 = new Tid("1400");
-   let tid8 = new Tid("1500");
-   let tid9 = new Tid("1600");
-   let tid10 = new Tid("1700");
-   let tid11 = new Tid("1800");
+   let tid1 = new Tid("08:00");
+   let tid2 = new Tid("09:00");
+   let tid3 = new Tid("10:00");
+   let tid4 = new Tid("11:00");
+   let tid5 = new Tid("12:00");
+   let tid6 = new Tid("13:00");
+   let tid7 = new Tid("14:00");
+   let tid8 = new Tid("15:00");
+   let tid9 = new Tid("16:00");
+   let tid10 = new Tid("17:00");
+   let tid11 = new Tid("18:00");
   
 const liste = [tid1, tid2, tid3, tid4, tid5, tid6, tid7, tid8, tid9, tid10, tid11];
 
