@@ -5,6 +5,7 @@ import { getFirestore, collection, getDocs, updateDoc, doc, deleteDoc, addDoc, g
 import { async } from '@firebase/util';
 import { stringify } from 'querystring';
 import { exit } from 'process';
+import { getFraDb } from "../Database";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -25,61 +26,6 @@ const firebase_app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
 export const firebase_db = getFirestore(firebase_app);
 
-
-let bookingerForMd = new Array(50); 	
-let count = 0;
-
- function getbookingerForMd() {
-	return bookingerForMd;
-}
-function setbookingerForMd(bookingerForMd) {
-	this.bookingerForMd = bookingerForMd;
-}
-
-function getCount() {
-	return count;
-}
-
-// function resetCount() {
-// 	count = 1;
-// }
-
-      
-//import { collection, query, getDocs, doc } from "firebase/firestore";
-//import { firebase_db } from "../Database";
-
-export async function getAntal(måned, produkttype) {	
-    let count = 0;	
-    
-    let q = query(collection(firebase_db, "tider"));
-    let querySnapshot = await getDocs(q);
-
-    querySnapshot.forEach((doc) => {
-            let month = doc.data().datoStart[1];
-            if (month == måned && produkttype == doc.get('type')){
-         count++;
-        }      
-    })
-    return count;
-}
-
-// For at kalde getAntal fra statistik.js: console.log(getAntal);
-// For at kalde getAntal fra BookingServer.js: console.log(Utils2.getAntal);
-
-export async function getSamletTid(måned, produkttype) {		
-    let tidCount = 0;	
-
-    const q = query(collection(firebase_db, "tider"));
-    const querySnapshot = await getDocs(q);
-
-    querySnapshot.forEach((doc) => {
-        let month = doc.data().datoStart[1];
-        if (month == måned && produkttype == doc.get('type')){
-            // console.log(tidsforbrug);
-            // tidCount += tidsforbrug;
-    }})
-    return tidCount;    
-}
 
 export function monthToNumber(month){
     let monthNr = 12
@@ -118,6 +64,34 @@ export function monthToNumber(month){
     }
      return monthNr;   
 }
+
+export async function getAntal(måned, produkttype) {	
+    let count = 0;	
+    let bookinger = getFraDb(); 
+
+    bookinger.forEach((doc) => {
+          let month = doc.data().datoStart[1]
+          if (month == måned && produkttype == doc.get('type')){
+        count++;
+      }      
+    })
+    return count;
+}
+
+
+export async function getSamletTid(måned, produkttype) {		
+    let tidCount = 0;	
+    let bookinger = getFraDb();
+
+    bookinger.forEach((doc) => {
+        let month = doc.data().datoStart[1]
+        if (month == måned && produkttype == doc.get('type')){
+            let tidsforbrug = doc.get('tidMin');
+            tidCount += tidsforbrug;
+    }})
+    return tidCount;    
+}
+
 console.log("Samlet tid " + await getSamletTid(12, "Par"));
 console.log("Antal tider: " + await getAntal(12, "Par"));
     
