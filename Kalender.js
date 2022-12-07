@@ -1,41 +1,41 @@
 import * as Utils from "./Database.js";
 
 class Dag {
-    constructor(navn) {
-        this.navn = navn;
-        this.dato;
-        this.årstal;
-        this.tider = [];
-    }
-   }
-  
-   let mandag = new Dag("Mandag ")
-   let tirsdag = new Dag("Tirsdag ")
-   let onsdag = new Dag("Onsdag ")
-   let torsdag = new Dag("Torsdag ")
-   let fredag = new Dag("Fredag ")
-   let lørdag = new Dag("Lørdag ")
-   let søndag = new Dag("Søndag ")
-    const dage = [mandag, tirsdag, onsdag, torsdag, fredag, lørdag, søndag];
-  
-  //endpoints
-  class Tid {
-    constructor(tid) {
-        this.tid = tid;
-    }
-   }
-   let tid1 = new Tid("08:00");
-   let tid2 = new Tid("09:00");
-   let tid3 = new Tid("10:00");
-   let tid4 = new Tid("11:00");
-   let tid5 = new Tid("12:00");
-   let tid6 = new Tid("13:00");
-   let tid7 = new Tid("14:00");
-   let tid8 = new Tid("15:00");
-   let tid9 = new Tid("16:00");
-   let tid10 = new Tid("17:00");
-   let tid11 = new Tid("18:00");
-  
+  constructor(navn) {
+    this.navn = navn;
+    this.dato;
+    this.årstal;
+    this.tider = [];
+  }
+}
+
+let mandag = new Dag("Mandag ")
+let tirsdag = new Dag("Tirsdag ")
+let onsdag = new Dag("Onsdag ")
+let torsdag = new Dag("Torsdag ")
+let fredag = new Dag("Fredag ")
+let lørdag = new Dag("Lørdag ")
+let søndag = new Dag("Søndag ")
+const dage = [mandag, tirsdag, onsdag, torsdag, fredag, lørdag, søndag];
+
+//endpoints
+class Tid {
+  constructor(tid) {
+    this.tid = tid;
+  }
+}
+let tid1 = new Tid("08:00");
+let tid2 = new Tid("09:00");
+let tid3 = new Tid("10:00");
+let tid4 = new Tid("11:00");
+let tid5 = new Tid("12:00");
+let tid6 = new Tid("13:00");
+let tid7 = new Tid("14:00");
+let tid8 = new Tid("15:00");
+let tid9 = new Tid("16:00");
+let tid10 = new Tid("17:00");
+let tid11 = new Tid("18:00");
+
 const liste = [tid1, tid2, tid3, tid4, tid5, tid6, tid7, tid8, tid9, tid10, tid11];
 
 export function getTidsListe() {
