@@ -2,45 +2,118 @@
     display: inline-grid;
     grid-template-columns: repeat(8, 50px);
     grid-template-rows: auto;
-
     grid-auto-flow: column;
-    background-color: beige;
+    background-color: rgb(247, 247, 247);
     justify-items: center; 
-    padding: 30px;
+    padding: 15px 30px;
     gap: 50px;
 }
 
 .grid-containerHori{
     border-color: antiquewhite;
-    border: 2px solid;
     border-collapse: collapse;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.produktType{
+    grid-column: span 4;
+    justify-items: center; 
+    align-items: center;
+    font-weight: bold;
+}
+
+#type{
+    border: 2px solid;
 }
 
 .grid-containerVert{
     display: inline-grid;
     grid-template-columns: repeat(8, 50px);
-
-    grid-template-rows: repeat(9, 30px);
+    grid-template-rows: repeat(11, 60px);
     grid-auto-flow: column;
-    background-color: beige;
+    background-color: rgb(247, 247, 247);
     justify-items: center; 
-    padding: 30px;
+    padding: 15px 30px;
     gap: 50px;
 }
 
-.grid-containerVertTider{
+
+.weekRow{
     display: inline-grid;
-    /* grid-template-columns: 1fr; */
-    grid-template-rows: 70px 70px 70px 70px 70px;
-    grid-auto-flow: column;
-    background-color: rgb(5, 5, 1);
-    justify-items: center; 
-    padding: 50px;
-    gap: 50px;
+    grid-template-columns: 50px 150px 50px 150px;
+    padding: 15px 15px;
+    align-items: center;
+    justify-self: center;
+    column-gap: 100px;
+    
 }
 
-.grid-containerVert{
-    border-color: antiquewhite;
-    border: 2px solid;
-    border-collapse: collapse;
+.År{
+    font-weight: bold;
 }
+
+#Uge{
+    font-weight: bold;
+}
+
+
+.grid-item-tid{
+    border: none;
+    color: black;
+    padding: 15px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-grid;
+    font-size: 16px;
+    border-right: 2px solid rgb(166, 166, 166);
+}
+
+.optaget{
+    background-color: #f27070; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 21px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 10px;
+}
+
+button {
+    background-color: #a4e6a6; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 10px;
+    transition-duration: 0.4s;
+  }
+
+  button:hover {
+    background-color: #4CAF50; /* Green */
+  }
+
+  #Tilbage, #Frem {
+    background-color: #76cdff; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 10px;
+    transition-duration: 0.4s;
+  }
+#Frem:hover {
+    background-color: #1e46ab; /* Green */
+  }
+#Tilbage:hover {
+    background-color: #1e46ab; /* Green */
+  }
+

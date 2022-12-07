@@ -51,6 +51,7 @@ export async function bookTid(kundeNavn, mail, telefonnummer, type, datoStart, d
        bookingNr : randomBookingNr,
        tidMin : tidMin
      });
+
     }
    }
    
@@ -80,49 +81,75 @@ export async function bookTid(kundeNavn, mail, telefonnummer, type, datoStart, d
    
    //ombookTid(6460725, "John@gmail.com", "John", "12345678", "Bryllup", [15,12,2022,1300], [15,12,2022,1200], "Aarhus C" )
    
+   export async function getCollection(data){
+    let col = collection(firebase_db, data)
+    return await getDocs(col);
+   }
+
    //Koden viser priserne i en liste - KUN FOR FAMILIE OG PAR
    export async function chooseProductsFamilieOgPar(){
-     let productCol = collection(firebase_db, 'FamilieOgPar')
-     let getProducts = await getDocs(productCol);
+    let getProducts = await getCollection('FamilieOgPar');
    
-     let productList = getProducts.docs.map(doc => {
-       let data = doc.data();
-       data.docId = doc.id;
-       return data.pris;
-     })
-     return JSON.stringify(productList);
+    let productList = getProducts.docs.map(doc => {
+      let data = doc.data();
+      data.docId = doc.id;
+      return data.pris;
+    })
+    return JSON.stringify(productList);
    }
    //console.log(await chooseProductsFamilieOgPar());
    
    //Viser prisen for bryllupper
    export async function chooseProductsBryllupper(){
-     let productCol = collection(firebase_db, 'Bryllupper')
-     let getProducts = await getDocs(productCol);
-   
-     let productList = getProducts.docs.map(doc => {
-       let data = doc.data();
-       data.docId = doc.id;
-       return data.pris;
-     })
-     return JSON.stringify(productList);
+    let getProducts = await getCollection('Bryllupper');
+    
+    let productList = getProducts.docs.map(doc => {
+      let data = doc.data();
+      data.docId = doc.id;
+      return data.pris;
+    })
+    return JSON.stringify(productList);
    }
    //console.log(await chooseProductsBryllupper());
 
 
    /*Antaget at oprettelse af en booking tilføjer den nye booking til DB-collection tider (funktionen henter data herfra)*/
-export async function getTider(){                                //viser alle bookede tider
-    let tidsCol = collection(firebase_db, 'tider')
-    let tider = await getDocs(tidsCol);
+  export async function getBookinger(){                                //viser alle bookede tider
+    let bookinger = await getCollection('tider');
   
-    let tidsListe = tider.docs.map(doc =>{
-        let data = doc.data();
-        data.docId = doc.id;
-        return data;
-    })
+    let bookingListe = bookinger.docs.map(doc =>{
+        return doc.get('datoStart');
+    });
     
-    tidsListe = tidsListe.map(({datoStart, datoSlut}) => ({datoStart, datoSlut}));
-  
-    //return JSON.stringify(tidsListe);
-    return tidsListe;
+    return bookingListe;
   }
+
+  export async function getAntal(måned, produkttype) {	
+    let count = 0;	
+    let bookinger = await getCollection('tider');
+
+    bookinger.forEach((doc) => {
+          let month = doc.data().datoStart[1]
+          if (month == måned && produkttype == doc.get('type')){
+        count++;
+      }      
+    })
+    return count;
+}
+
+// For at kalde getAntal fra statistik.js: console.log(getAntal);
+// For at kalde getAntal fra BookingServer.js: console.log(Utils2.getAntal);
+
+export async function getSamletTid(måned, produkttype) {		
+    let tidCount = 0;	
+    let bookinger = await getCollection('tider');
+
+    bookinger.forEach((doc) => {
+        let month = doc.data().datoStart[1]
+        if (month == måned && produkttype == doc.get('type')){
+            let tidsforbrug = doc.get('tidMin');
+            tidCount += tidsforbrug;
+    }})
+    return tidCount;    
+}
    
