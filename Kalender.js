@@ -9,13 +9,13 @@ class Dag {
   }
 }
 
-let mandag = new Dag("Mandag ")
-let tirsdag = new Dag("Tirsdag ")
-let onsdag = new Dag("Onsdag ")
-let torsdag = new Dag("Torsdag ")
-let fredag = new Dag("Fredag ")
-let lørdag = new Dag("Lørdag ")
-let søndag = new Dag("Søndag ")
+let mandag = new Dag("Mandag ");
+let tirsdag = new Dag("Tirsdag ");
+let onsdag = new Dag("Onsdag ");
+let torsdag = new Dag("Torsdag ");
+let fredag = new Dag("Fredag ");
+let lørdag = new Dag("Lørdag ");
+let søndag = new Dag("Søndag ");
 const dage = [mandag, tirsdag, onsdag, torsdag, fredag, lørdag, søndag];
 
 //endpoints
@@ -36,7 +36,19 @@ let tid9 = new Tid("16:00");
 let tid10 = new Tid("17:00");
 let tid11 = new Tid("18:00");
 
-const liste = [tid1, tid2, tid3, tid4, tid5, tid6, tid7, tid8, tid9, tid10, tid11];
+const liste = [
+  tid1,
+  tid2,
+  tid3,
+  tid4,
+  tid5,
+  tid6,
+  tid7,
+  tid8,
+  tid9,
+  tid10,
+  tid11,
+];
 
 export function getTidsListe() {
   return liste;
@@ -59,9 +71,12 @@ export function getDateOfISOWeek(w, y, weekday) {
   var simple = new Date(y, 0, 1 + (w - 1) * 7);
   var dow = simple.getDay();
   var ISOweekStart = simple;
-  if (dow <= 4) ISOweekStart.setDate(simple.getDate() - simple.getDay() + 1);
-  else ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay());
-  ISOweekStart.setDate(ISOweekStart.getDate() + weekday);
+  if (dow <= 4) {
+    ISOweekStart.setDate(simple.getDate() - simple.getDay() + 1);
+  } else {
+    ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay());
+    ISOweekStart.setDate(ISOweekStart.getDate() + weekday);
+  }
   return ISOweekStart.getDate() + "/" + (ISOweekStart.getMonth() + 1);
 }
 
