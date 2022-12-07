@@ -26,7 +26,7 @@ html
                     let tlfnr = document.getElementById("tlf").value
                     let ønsker = document.getElementById("ønsker").value
                     await post("http://localhost:8080/bookInformation", {navn : navn, efternavn : efternavn, mail : mail, tlfnr : tlfnr, ønsker : ønsker}); 
-                    window.location.href = "http://localhost:8080/";
+                    window.location.href = "http://localhost:8080/afslut";
                 }
                 catch (e) {
                     console.log("Fejl");

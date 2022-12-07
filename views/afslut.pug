@@ -1,0 +1,21 @@
+html
+    head 
+        style 
+            include afslut.css
+        script.
+            let redirect = function(){
+                window.location.href = "http://localhost:8080/";
+            } 
+
+            let timeout = function(){
+                window.setTimeout(redirect, 5000);
+            }
+
+
+
+    body(onload='timeout()')
+        center
+            div
+                p Tak for din booking! 
+                p Du vil blive videresendt om få sekunder.
+

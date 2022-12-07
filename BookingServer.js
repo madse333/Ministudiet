@@ -54,6 +54,10 @@ app.get('/statistik', async (request, response) => {
   response.render('statistik')
 })
 
+app.get('/afslut', async (request, response) => {
+  response.render('afslut');
+})
+
 app.post('/shiftWeeks', (request, response) => {
   const { value } = request.body;
   let week = request.session.week;

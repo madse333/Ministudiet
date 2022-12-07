@@ -2,10 +2,10 @@
   "name": "eksempel",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "bookingServer.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha 'test/*.test.js'"
   },
   "author": "",
   "license": "ISC",
@@ -18,5 +18,9 @@
     "pug": "^3.0.2",
     "require": "^0.4.4",
     "session": "^0.1.0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.7",
+    "mocha": "^10.1.0"
   }
 }
