@@ -113,17 +113,6 @@ export async function bookTid(kundeNavn, mail, telefonnummer, type, datoStart, d
    //console.log(await chooseProductsBryllupper());
 
 
-   /*Antaget at oprettelse af en booking tilføjer den nye booking til DB-collection tider (funktionen henter data herfra)*/
-  export async function getBookinger(){                                //viser alle bookede tider
-    let bookinger = await getCollection('tider');
-  
-    let bookingListe = bookinger.docs.map(doc =>{
-        return doc.get('datoStart');
-    });
-    
-    return bookingListe;
-  }
-
 
 export function getFraDb(){
   return getCollection('tider');

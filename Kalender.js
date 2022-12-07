@@ -74,7 +74,7 @@ const liste = [tid1, tid2, tid3, tid4, tid5, tid6, tid7, tid8, tid9, tid10, tid1
   
   export async function putBookinger(weeknumber, årstal){
     let newWeek = createWeek(weeknumber, årstal);
-    let bookinger = await Utils.getBookinger();
+    let bookinger = await getBookinger();
     bookinger.forEach(booking => {
       for (let j = 0; j < newWeek.length; j++){
           if (newWeek[j].årstal == booking[2]){
@@ -92,3 +92,14 @@ const liste = [tid1, tid2, tid3, tid4, tid5, tid6, tid7, tid8, tid9, tid10, tid1
     });  
     return newWeek;
   }
+
+    export async function getBookinger(){                               
+      let bookinger = await Utils.getFraDb();
+    
+      let bookingListe = 
+      bookinger.docs.map(doc =>{
+          return doc.get('datoStart');
+      });
+      
+      return bookingListe;
+    }
