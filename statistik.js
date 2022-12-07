@@ -65,8 +65,3 @@ export async function getSamletTid(måned, produkttype) {
     }})
     return tidCount;    
 }
-
-console.log("Samlet tid " + await getSamletTid(12, "Par"));
-console.log("Antal tider: " + await getAntal(12, "Par"));
-    
-    
