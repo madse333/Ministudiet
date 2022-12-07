@@ -55,8 +55,6 @@ export async function bookTid(kundeNavn, mail, telefonnummer, type, datoStart, d
     }
    }
    
-   //bookTid("Preben", "John@gmail.com", "12345678", "Par", [15, 12, 2022, 1200], [15, 12, 2022, 1300], "Viby J", 60);
-   
    //#9 PO ønsker at kunden kan aflyse egne bookinger i systemet
    export async function aflysTid(bookingNr, mail) {
     if (typeof bookingNr != "number"){
@@ -71,16 +69,12 @@ export async function bookTid(kundeNavn, mail, telefonnummer, type, datoStart, d
     }
    }
    
-   //aflysTid(6831746, "John@gmail.com")
-   
    // #5 PO ønsker at kunden selv kan ombooke en fotografering
    export async function ombookTid(bookingNr, mail, kundeNavn, telefonnummer, type, datoStart, datoSlut, lokation, tidMin) { 
     bookTid(kundeNavn, mail, telefonnummer, type, datoStart, datoSlut, lokation, tidMin)
      aflysTid(bookingNr, mail);
    }
-   
-   //ombookTid(6460725, "John@gmail.com", "John", "12345678", "Bryllup", [15,12,2022,1300], [15,12,2022,1200], "Aarhus C" )
-   
+  
    export async function getCollection(data){
     let col = collection(firebase_db, data)
     return await getDocs(col);
@@ -97,8 +91,7 @@ export async function bookTid(kundeNavn, mail, telefonnummer, type, datoStart, d
     })
     return JSON.stringify(productList);
    }
-   //console.log(await chooseProductsFamilieOgPar());
-   
+
    //Viser prisen for bryllupper
    export async function chooseProductsBryllupper(){
     let getProducts = await getCollection('Bryllupper');
@@ -110,9 +103,6 @@ export async function bookTid(kundeNavn, mail, telefonnummer, type, datoStart, d
     })
     return JSON.stringify(productList);
    }
-   //console.log(await chooseProductsBryllupper());
-
-
 
 export function getFraDb(){
   return getCollection('tider');

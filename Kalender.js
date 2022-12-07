@@ -1,4 +1,4 @@
-import * as Utils from './Database.js';
+import * as Utils from "./Database.js";
 
 class Dag {
     constructor(navn) {
@@ -38,68 +38,59 @@ class Dag {
   
 const liste = [tid1, tid2, tid3, tid4, tid5, tid6, tid7, tid8, tid9, tid10, tid11];
 
-   export function getTidsListe(){
-    return liste;
-   }
-  
-  // let fremButton = document.querySelector('Button');
-  // fremButton.addEventListener("click", skiftUge);
-  
-  export function createWeek(weekNumber, årstal){
-    let newWeek = JSON.parse(JSON.stringify(dage));
-    console.log(dage);
-    let week = weekNumber;
-    for (let i = 0; i < newWeek.length; i++) {
-      newWeek[i].dato = getDateOfISOWeek(week, new Date().getFullYear(),i);
-      newWeek[i].årstal = årstal;
-      for (let j = 0; j < liste.length; j++) {
-        newWeek[i].tider.push(JSON.parse(JSON.stringify(liste[j])));
+export function getTidsListe() {
+  return liste;
+}
+
+export function createWeek(weekNumber, årstal) {
+  let newWeek = JSON.parse(JSON.stringify(dage));
+  let week = weekNumber;
+  for (let i = 0; i < newWeek.length; i++) {
+    newWeek[i].dato = getDateOfISOWeek(week, new Date().getFullYear(), i);
+    newWeek[i].årstal = årstal;
+    for (let j = 0; j < liste.length; j++) {
+      newWeek[i].tider.push(JSON.parse(JSON.stringify(liste[j])));
+    }
+  }
+  return newWeek;
+}
+
+export function getDateOfISOWeek(w, y, weekday) {
+  var simple = new Date(y, 0, 1 + (w - 1) * 7);
+  var dow = simple.getDay();
+  var ISOweekStart = simple;
+  if (dow <= 4) ISOweekStart.setDate(simple.getDate() - simple.getDay() + 1);
+  else ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay());
+  ISOweekStart.setDate(ISOweekStart.getDate() + weekday);
+  return ISOweekStart.getDate() + "/" + (ISOweekStart.getMonth() + 1);
+}
+
+export async function putBookinger(weeknumber, årstal) {
+  let newWeek = createWeek(weeknumber, årstal);
+  let bookinger = await getBookinger();
+  bookinger.forEach((booking) => {
+    for (let j = 0; j < newWeek.length; j++) {
+      if (newWeek[j].årstal == booking[2]) {
+        let dato = newWeek[j].dato.split("/");
+        if (dato[0] == booking[0] && dato[1] == booking[1]) {
+          newWeek[j].tider.find((obj) => {
+            if (obj.tid == booking[3]) {
+              obj.tid = "Optaget";
+            }
+          });
+        }
       }
     }
-    console.log(newWeek);
-    return newWeek;
-  }
-  
-  export function getDateOfISOWeek(w, y, weekday) {
-    var simple = new Date(y, 0, 1 + (w - 1) * 7);
-    var dow = simple.getDay();
-    var ISOweekStart = simple;
-    if (dow <= 4)
-        ISOweekStart.setDate(simple.getDate() - simple.getDay() + 1);
-    else
-        ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay());
-        ISOweekStart.setDate(ISOweekStart.getDate() + weekday);
-        return (ISOweekStart.getDate()) + "/" + (ISOweekStart.getMonth() + 1);
-  }
-  
-  export async function putBookinger(weeknumber, årstal){
-    let newWeek = createWeek(weeknumber, årstal);
-    let bookinger = await getBookinger();
-    bookinger.forEach(booking => {
-      for (let j = 0; j < newWeek.length; j++){
-          if (newWeek[j].årstal == booking[2]){
-              let dato = newWeek[j].dato.split("/");
-              if (dato[0] == booking[0] && dato[1] == booking[1]){
-                  newWeek[j].tider.find(obj => {
-                    if (obj.tid == booking[3]){
-                      console.log(obj)
-                      obj.tid = "Optaget";
-                    } 
-                  })
-              }
-            }
-        } 
-    });  
-    return newWeek;
-  }
+  });
+  return newWeek;
+}
 
-    export async function getBookinger(){                               
-      let bookinger = await Utils.getFraDb();
-    
-      let bookingListe = 
-      bookinger.docs.map(doc =>{
-          return doc.get('datoStart');
-      });
-      
-      return bookingListe;
-    }
+export async function getBookinger() {
+  let bookinger = await Utils.getFraDb();
+
+  let bookingListe = bookinger.docs.map((doc) => {
+    return doc.get("datoStart");
+  });
+
+  return bookingListe;
+}

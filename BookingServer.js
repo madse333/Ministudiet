@@ -1,4 +1,3 @@
-import express, { json } from 'express';
 const app = express();
 import sessions from 'express-session';
 
@@ -21,8 +20,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 
 import * as Utils from './Database.js';
-import * as Utils2 from './statistik.js';
-import * as Utils3 from './Kalender.js';
+import * as Utils2 from './Kalender.js';
 
 
 //getRequest
@@ -37,11 +35,10 @@ app.get('/', async (request, response) => {
   if (weekNumber > 52){
     årstal++;
   }
-  let dage = await Utils3.putBookinger(weekNumber, årstal)
-  let liste = Utils3.getTidsListe();
+  let dage = await Utils2.putBookinger(weekNumber, årstal)
+  let liste = Utils2.getTidsListe();
   response.render('kalender', {list : liste, dage : dage, weekNumber : weekNumber, årstal : årstal});
 })
-
 
 app.get('/information', async (request, response) => {
   let bookingdato = request.session.booking;
@@ -96,17 +93,11 @@ app.post('/bookInformation', (request, response) => {
   response.status(201).send(['Information indtastet']);
 })
 
-
-
 //deleteRequest
 app.delete('/', (request, response) => {
   deleteXX(request.params.XX);
   response.status(201);
   response.send("Deleted");
 });
-
-//console.log(Utils.getTider())
-//Utils.bookTid("Kresten", "John@gmail.com", 12345678, "Par", [15, 12, 2022, 1200], [15, 12, 2022, 1300], "Viby J", 60);
-
 
 app.listen(8080, () => console.log('Lytter nu på port 8080'));
