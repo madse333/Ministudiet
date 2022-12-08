@@ -28,6 +28,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 import * as Utils from "./Database.js";
 import * as Utils2 from "./Kalender.js";
+import * as Utils3 from "./statistik.js";
 
 //getRequest
 app.get("/", async (request, response) => {
@@ -62,7 +63,17 @@ app.get("/information", async (request, response) => {
 
 // Eksempel på at hente fra database med pug
 app.get("/statistik", async (request, response) => {
-  response.render("statistik");
+  let måned = request.session.måned;
+  let type = request.session.type;
+  let antal = "";
+  let samletTid = "";
+
+  antal = await Utils3.getAntal(måned, type);
+  samletTid = await Utils3.getSamletTid(måned,type);
+  request.session.antal = antal;
+  request.session.samletTid = samletTid;
+
+  response.render("statistik", {antal : antal, samletTid : samletTid});
 });
 
 app.get("/afslut", async (request, response) => {
@@ -115,6 +126,17 @@ app.post("/bookInformation", (request, response) => {
   );
   response.status(201).send(["Information indtastet"]);
 });
+
+app.post('/postStatistics', (request, response) => {
+  let måned = request.body.måned;
+  let type = request.body.type;
+  console.log(måned);
+  console.log(type);
+  request.session.måned = måned;
+  request.session.type = type;
+
+  response.status(201).send(["Statistik valgt"]);
+})
 
 //deleteRequest
 app.delete("/", (request, response) => {

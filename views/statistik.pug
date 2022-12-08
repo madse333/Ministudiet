@@ -3,6 +3,38 @@ html
     head
         style 
             include ./statistik.css
+
+        script.
+            async function post(url, objekt) { 
+                const respons = await fetch(url, { 
+                method: "POST", 
+                body: JSON.stringify(objekt), 
+                headers: { 
+                'Content-Type': 'application/json' 
+                    } 
+                }); 
+
+                if (respons.status !== 201) // Created 
+                throw new Error(respons.status); 
+                return await respons.text(); 
+            } 
+ 
+            let inputFunction = async () => {
+                try {
+                    let måned = document.getElementById("Måneder").value
+                    let type = document.getElementById("Produkttyper").value
+
+                    console.log(måned);
+                    console.log(type);
+                    if (måned != "" && type != ""){
+                        await post("http://localhost:8080/postStatistics", {måned : måned, type : type});
+                        window.location.href = "http://localhost:8080/statistik";
+                    }
+                }catch (e) {
+                        console.log("Fejl");
+                }
+            }
+
         title Statistik
 
     body 
@@ -10,20 +42,20 @@ html
     center                  
         div
             label Statistik for måned <p>
-            input(list = "Måneder")
-            datalist(id = "Måneder")
-                option(value = "Januar")
-                option(value = "Februar")
-                option(value = "Marts")
-                option(value = "April")
-                option(value = "Maj")
-                option(value = "Juni")
-                option(value = "Juli")
-                option(value = "August")
-                option(value = "September")
-                option(value = "Oktober")
-                option(value = "November")
-                option(value = "December")
+            select(id = "Måneder" onchange="inputFunction()")
+                option(value="")  
+                option(value = "Januar") Januar 
+                option(value = "Februar") Februar
+                option(value = "Marts") Marts
+                option(value = "April") April
+                option(value = "Maj") Maj
+                option(value = "Juni") Juni
+                option(value = "Juli") Juli
+                option(value = "August") August
+                option(value = "September") September
+                option(value = "Oktober") Oktober
+                option(value = "November") November
+                option(value = "December") December
 
     center
         div
@@ -32,10 +64,10 @@ html
     center
         div
             label Produkttype <p>
-            input(list = "Produkttyper")
-            datalist(id = "Produkttyper")
-                option(value = "Familieportræt")
-                option(value = "Afklaringssamtale")
+            select(id = "Produkttyper" onchange="inputFunction()")
+                option(value="") 
+                option(value = "Familieportræt") Familieportræt
+                option(value = "Afklaringssamtale") Afklaringssamtale
 
     center
         div
@@ -44,10 +76,7 @@ html
  
         div
             label Antal: 
-                input(type="text" name="title" placeholder="Antal af produkttypen")
-                // How? GUI: Beholde input-feltet
-                // Lav en getAntal-metode der looper igennem hhv. dage i valgt måned + bookingerness produkttyper (gem i var-array)
-                // ^ Metode kaldes når begge feltet er udfyldt via drop down
+                input(id="Antal" type="text" name="title" placeholder="Antal af produkttypen" value=antal)
             
     center
         div
@@ -59,7 +88,7 @@ html
 
         div
             label Samlet tidsforbrug: 
-                input(type="text" name="title" placeholder="Samlet tidsforbrug")
+                input(id="SamletTid" type="text" name="title" placeholder="Samlet tidsforbrug" value=samletTid)
                 // How? GUI: Beholde input-feltet
                 // Lav en getSamletTid-metode der looper igennem var-array(lavet i metoden^) og summerer objekt.tidMin og gemmer det i en var.
                 // ^ Metode kaldes når begge feltet er udfyldt via drop down    
