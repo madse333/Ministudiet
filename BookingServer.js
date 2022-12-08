@@ -130,8 +130,6 @@ app.post("/bookInformation", (request, response) => {
 app.post('/postStatistics', (request, response) => {
   let måned = request.body.måned;
   let type = request.body.type;
-  console.log(måned);
-  console.log(type);
   request.session.måned = måned;
   request.session.type = type;
 
