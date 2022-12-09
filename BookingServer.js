@@ -61,7 +61,7 @@ app.get("/information", async (request, response) => {
   response.render("information", { bookingDato: bookingdato });
 });
 
-// Eksempel på at hente fra database med pug
+
 app.get("/statistik", async (request, response) => {
   let måned = request.session.måned;
   let type = request.session.type;
@@ -136,7 +136,6 @@ app.post('/postStatistics', (request, response) => {
   response.status(201).send(["Statistik valgt"]);
 })
 
-//deleteRequest
 app.delete("/", (request, response) => {
   deleteXX(request.params.XX);
   response.status(201);

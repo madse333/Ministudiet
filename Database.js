@@ -17,8 +17,6 @@ import {
 import { async } from "@firebase/util";
 import { stringify } from "querystring";
 import { exit } from "process";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -31,7 +29,6 @@ const firebaseConfig = {
   measurementId: "G-J5P8WL1TKV",
 };
 
-// app.use(sessions({ secret: 'hemmelig', saveUninitialized: true, cookie: { maxAge: 1000*60*20 }, resave: false }));
 // Initialize Firebase
 const firebase_app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
