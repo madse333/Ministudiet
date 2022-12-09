@@ -83,7 +83,6 @@ export async function bookTid(
   }
 }
 
-//#9 PO ønsker at kunden kan aflyse egne bookinger i systemet
 export async function aflysTid(bookingNr, mail) {
   if (typeof bookingNr != "number") {
     console.log("Forkert input");
@@ -101,7 +100,6 @@ export async function aflysTid(bookingNr, mail) {
   }
 }
 
-// #5 PO ønsker at kunden selv kan ombooke en fotografering
 export async function ombookTid(
   bookingNr,
   mail,

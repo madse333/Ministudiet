@@ -60,7 +60,6 @@ app.get("/information", async (request, response) => {
   response.render("information", { bookingDato: bookingdato });
 });
 
-// Eksempel på at hente fra database med pug
 app.get("/statistik", async (request, response) => {
   response.render("statistik");
 });
