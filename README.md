@@ -3,7 +3,8 @@
 Fag | Systemudviklingsmetode på 3.Semester af datamatiker-uddannelsen 
 Karakter på baggrund af rapport, samt mundtlig eksamination af faget som helhed | 12
 
-Vi fik stillet en opgave om at udarbejde en it-forundersøgelse og en it-løsning til en selvvalgt virksomhed. Vores valg endte med at blive fotografi-studiet 'Ministudiet'.
+Vi fik stillet en opgave om at udarbejde en it-forundersøgelse og en it-løsning til en selvvalgt virksomhed. 
+Vores valg endte med at blive fotografi-studiet 'Ministudiet'.
 Da vi skulle være så tro mod virkeligheden som muligt, kunne vi konkludere efter vores forundersøgelse
 at det ikke var relevant for Louise at udvide på hendes nuværende bookingsystem.
 
