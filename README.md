@@ -1,7 +1,7 @@
 # Ministudiet (Booking løsning)
 
-Fag | Systemudviklingsmetode på 3.Semester af datamatiker-uddannelsen 
-Karakter på baggrund af rapport, samt mundtlig eksamination af faget som helhed | 12
+Fag | Systemudviklingsmetode på 3.Semester af datamatiker-uddannelsen. 
+Karakter på baggrund af rapport, samt mundtlig eksamination af faget som helhed | 12.
 
 Vi fik stillet en opgave om at udarbejde en it-forundersøgelse og en it-løsning til en selvvalgt virksomhed. 
 Vores valg endte med at blive fotografi-studiet 'Ministudiet'.
